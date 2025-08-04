@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
     public function index()
     {
+        if (!Auth::user()->can('profile.read')) {
+            abort(403, 'Anda tidak punya akses untuk melihat profile');
+        }
         $profile = Profile::first();
         return view('admin.profiles.index', compact('profile'));
     }
