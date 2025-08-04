@@ -241,7 +241,7 @@
                 });
             });
 
-            $('#role-table').DataTable({
+            $('#permissionTable').DataTable({
                 paging: true,
                 searching: true,
                 ordering: false,
@@ -250,7 +250,7 @@
                 lengthChange: true,
                 info: false,
                 pageLength: 10,
-                lengthMenu: [5, 10, 20, 50, ]
+                lengthMenu: [5, 10, 20, 50]
             });
         });
     </script>
