@@ -196,6 +196,24 @@
                             color: '#fff'
                         });
                         loadRoles();
+                    },
+                    error: function(xhr) {
+                        let errors = xhr.responseJSON.errors;
+                        let errorMessage = xhr.responseJSON.errors ? 'Please fix the following errors:<br>' : '';
+                        $.each(errors, function(key, value) {
+                            errorMessage += value[0] + '<br>';
+                        });
+                        Swal.fire({
+                            title: 'Error!',
+                            html: errorMessage,
+                            icon: 'error',
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            toast: true,
+                            background: '#dc3545',
+                            color: '#fff'
+                        });
                     }
                 });
             });

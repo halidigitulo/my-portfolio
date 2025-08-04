@@ -53,7 +53,7 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-        if (!Auth::user()->can('users.update')) {
+        if (!Auth::user()->can('roles.update')) {
             abort(403, 'Anda tidak punya akses untuk mengedit user');
         }
         $role->update(['name' => $request->name]);

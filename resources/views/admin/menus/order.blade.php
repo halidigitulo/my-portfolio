@@ -74,7 +74,17 @@
                     order: order
                 },
                 success: function(res) {
-                    Swal.fire('Berhasil', res.message, 'success');
+                    Swal.fire({
+                            title: 'Success!',
+                            text: res.message,
+                            icon: 'success',
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            toast: true,
+                            background: '#28a745',
+                            color: '#fff'
+                        });
                 },
                 error: function() {
                     Swal.fire('Gagal', 'Gagal menyimpan urutan', 'error');
