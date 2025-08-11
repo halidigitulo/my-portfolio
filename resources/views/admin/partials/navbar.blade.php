@@ -146,9 +146,9 @@
             const dateDayTime = `${day}, ${currentDate} - ${time}`;
 
             document.getElementById('date-day-time').innerHTML = dateDayTime;
-            document.getElementById('day').innerHTML = day;
-            document.getElementById('date').innerHTML = currentDate;
-            document.getElementById('time').innerHTML = time;
+            // document.getElementById('day').innerHTML = day;
+            // document.getElementById('date').innerHTML = currentDate;
+            // document.getElementById('time').innerHTML = time;
 
         }
 
