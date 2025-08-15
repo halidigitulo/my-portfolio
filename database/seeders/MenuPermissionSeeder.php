@@ -56,7 +56,7 @@ class MenuPermissionSeeder extends Seeder
             ],
             [
                 'name' => 'Permissions',
-                'url' => 'admin/permission',
+                'url' => 'admin/permissions',
                 'icon' => 'mouse-alt',
                 'permission' => 'permissions.read',
                 'sort_order' => 4,
