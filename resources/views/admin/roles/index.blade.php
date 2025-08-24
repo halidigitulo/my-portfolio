@@ -52,12 +52,9 @@
                                         <div class="row">
                                             <div class="col d-flex justify-content-between">
                                                 <div>
-                                                    Modul
-                                                </div>
-                                                <div>
                                                     <!-- ✅ Centang semua -->
-                                                    <input type="checkbox" id="checkAll" class="select-all">
-                                                    <label for="checkAll" class="form-check-label">Check All</label>
+                                                    <input type="checkbox" id="checkAll" class="select-all form-check-input">
+                                                    <label for="checkAll" class="form-check-label">Modul</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,15 +71,11 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col d-flex justify-content-between">
-                                                    <div>{{ ucfirst($module) }} </div>
-                                                    <div>
-                                                        <!-- ✅ Centang per modul -->
-                                                        <input type="checkbox" class="check-module text-end select-all"
+                                                    <div><input type="checkbox" class="form-check-input check-module text-end select-all"
                                                             data-module="{{ $module }}"
-                                                            id="check_{{ $module }}">
-                                                        <label for="check_{{ $module }}"
-                                                            class="form-check-label">Check All</label>
-                                                    </div>
+                                                            id="check_{{ $module }}"> <label for="check_{{ $module }}"
+                                                            class="form-check-label">{{ ucfirst($module) }} </label></div>
+                                                    
                                                 </div>
                                             </div>
                                         </td>
@@ -105,10 +98,11 @@
                     </div>
                     <div class="modal-footer">
                         @can('roles.create')
-                            <button type="submit" class="btn btn-success"><i class="ri-save-line"></i> Save</button>
+                            <button type="submit" class="btn btn-success"><i class="tf-icons bx bx-save"></i> Save</button>
                         @endcan
+                        
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="ri-close-line"></i>Cancel
+                            <i class="tf-icons bx bx-x"></i> Cancel
                         </button>
                     </div>
                 </div>
@@ -213,17 +207,17 @@
                     responsive: true,
                     autoWidth: false,
                     lengthMenu: [
-                        [10, 25, 50, -1],
+                        [10, 25, 50],
                         [10, 25, 50, "All"]
                     ],
                     pageLength: 10,
                     language: {
                         lengthMenu: "Show _MENU_", // supaya tampil dropdown lengthMenu
                         search: "Search:",
-                        paginate: {
-                            previous: "Prev",
-                            next: "Next"
-                        }
+                        // paginate: {
+                        //     previous: "Prev",
+                        //     next: "Next"
+                        // }
                     }
                 });
             }
@@ -235,7 +229,7 @@
                 searching: true,
                 ordering: false,
                 info: false,
-                pageLength: 10,
+                pageLength: 5,
                 lengthMenu: [5, 10, 20, 50],
             });
 
@@ -391,7 +385,15 @@
                     },
                     success: function(res) {
                         $('#modalRole').modal('hide');
-                        Swal.fire('Success', res.message, 'success');
+                        Swal.fire({
+                            title: 'Success!',
+                            text: res.message,
+                            icon: 'success',
+                            timer: 3000,
+                            toast: true,
+                            showConfirmButton: false,
+                            position: 'top-end',
+                        });
                         loadRoles(); // milikmu untuk table daftar role
                     }
                 });
@@ -414,12 +416,25 @@
                             _token: "{{ csrf_token() }}",
                             _method: 'DELETE'
                         }, function(res) {
-                            Swal.fire('Deleted!', res.message, 'success');
+                            Swal.fire({
+                                title: 'Success!',
+                                text: res.message,
+                                icon: 'success',
+                                timer: 3000,
+                                toast: true,
+                                showConfirmButton: false,
+                                position: 'top-end',
+                            });
                             loadRoles();
                         });
                     }
                 });
             });
         });
+         
+    </script>
+    <script>
+       
+        
     </script>
 @endpush

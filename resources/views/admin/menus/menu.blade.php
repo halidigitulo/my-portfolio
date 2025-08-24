@@ -38,7 +38,7 @@
                                 placeholder="URL (default: #)">
                             <input type="text" class="form-control mb-2" id="menu_icon"
                                 placeholder="Icon (default: circle-line)">
-                            <select class="mb-2 form-select" id="menu_parent_id" name="parent_id">
+                            <select class="mb-2 form-select select2" id="menu_parent_id" name="parent_id">
                                 <option value="">-- No Parent (Root) --</option>
                                 @foreach ($menus as $menu)
                                     <option value="{{ $menu->id }}">{{ $menu->name }}</option>
@@ -49,9 +49,9 @@
                                 placeholder="Permission Name">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success"><i class="ri-save-line"></i> Save</button>
+                            <button type="submit" class="btn btn-success"><i class="tf-icons bx bx-save"></i> Save</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
-                                    class="ri-close-line"></i> Cancel</button>
+                                    class="tf-icons bx bx-x"></i> Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -179,12 +179,10 @@
                             title: 'Success!',
                             text: res.message,
                             icon: 'success',
-                            position: 'top-end',
-                            showConfirmButton: false,
                             timer: 1000,
                             toast: true,
-                            background: '#28a745',
-                            color: '#fff'
+                            showConfirmButton: false,
+                            position: 'top-end',
                         });
                         $('#modalMenu').modal('hide');
                         $('#formMenu')[0].reset(); // Reset form
@@ -212,7 +210,15 @@
                             _method: "DELETE"
                         }, function(response) {
                             $('#menu-table').DataTable().ajax.reload();
-                            Swal.fire('Deleted!', response.message, 'success');
+                            Swal.fire({
+                                title: 'Success!',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 1000,
+                                toast: true,
+                                showConfirmButton: false,
+                                position: 'top-end',
+                            });
                             // fetchData();
                         });
                     }
@@ -228,6 +234,20 @@
         $('#modalMenu').on('hide.bs.modal', function() {
             $(this).find(':focus').blur();
         });
+
+        $('#modalMenu').on('shown.bs.modal', function() {
+            const selects = ['#menu_parent_id'];
+
+            selects.forEach(function(selector) {
+                new TomSelect(selector, {
+                    sortField: {
+                        field: "text",
+                        direction: "asc"
+                    },
+                    // dropdownParent: $('#userModal'), // Ensure the dropdown remains properly aligned in the modal
+                    closeAfterSelect: true // Optional: close dropdown after selecting an option
+                });
+            });
+        });
     </script>
-    
 @endpush

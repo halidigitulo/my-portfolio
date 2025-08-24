@@ -92,7 +92,15 @@
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    Swal.fire('Berhasil', response.message, 'success');
+                    Swal.fire({
+                            title: 'Success!',
+                            text: response.message,
+                            icon: 'success',
+                            timer: 1000,
+                            toast: true,
+                            showConfirmButton: false,
+                            position: 'top-end',
+                        });
                 },
                 error: function() {
                     Swal.fire('Error', 'Gagal menyimpan urutan', 'error');

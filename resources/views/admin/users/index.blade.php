@@ -5,7 +5,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="ri-settings-line"></i> @yield('title')</h4>
+                    <h4 class="card-title">@yield('title')</h4>
                 </div>
                 <div class="card-body">
                     @can('users.create')
@@ -16,88 +16,86 @@
                             </div>
                         </div>
                     @endcan
-                    <div class="row">
-                        <div class="col table-responsive">
-                            <table id="table_user" class="table table-hover table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>profile_picture</th>
-                                        <th>Nama</th>
-                                        <th>Username</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+                    <div class="table-responsive-sm">
+                        <table id="table_user" class="table table-hover table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>profile_picture</th>
+                                    <th>Nama</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
-
-                    {{-- Modal  --}}
-                    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="userModalLabel">Add User</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <form id="userForm" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <input type="hidden" id="user_id">
-                                        <div class="form-group">
-                                            <label for="name">Nama</label>
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                autocomplete="off" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="username">Username</label>
-                                            <input type="text" class="form-control" id="username" name="username"
-                                                autocomplete="off" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                autocomplete="off">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="role">Role</label>
-                                            <select name="role_id" id="user_role_id" class="form-control select2">
-                                                <option value="">-- Pilih Role --</option>
-                                                @foreach ($role as $r)
-                                                    <option value="{{ $r->id }}">{{ $r->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p class="text-muted">Foto</p>
-                                            <input type="file" class="form-control" id="profile_picture" name="profile_picture"
-                                                onchange="previewFoto(event)">
-                                            <img id="preview-foto" alt="Preview" class="rounded img-fluid mt-2"
-                                                style="max-width: 100px;" display="none">
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <label for="is_active" class="form-check-label">Aktif?</label>
-                                            <input type="checkbox" id="is_active" name="is_active" class="form-check-input">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-light waves-effect"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="saveuser">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+    {{-- Modal  --}}
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">Add User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="userForm" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" id="user_id">
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" class="form-control" id="name" name="name" autocomplete="off"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" autocomplete="off"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select name="role_id" id="user_role_id" class="form-control select2">
+                                <option value="">-- Pilih Role --</option>
+                                @foreach ($role as $r)
+                                    <option value="{{ $r->id }}">{{ $r->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
+                        <div class="form-group">
+                            <p class="text-muted">Foto</p>
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture"
+                                onchange="previewFoto(event)">
+                            <img id="preview-foto" alt="Preview" class="rounded img-fluid mt-2" style="max-width: 100px;"
+                                display="none">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="is_active" class="form-check-label">Aktif?</label>
+                            <input type="checkbox" id="is_active" name="is_active" class="form-check-input">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @can('users.create')
+                            <button type="submit" class="btn btn-success"><i class="tf-icons bx bx-save"></i> Save</button>
+                        @endcan
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="tf-icons bx bx-x"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('style')
     <link href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -196,7 +194,7 @@
                     responsive: true, // Makes the table responsive
                     autoWidth: false, // Prevents auto-sizing of columns
                     lengthMenu: [
-                        [10, 25, 50, -1],
+                        [10, 25, 50],
                         [10, 25, 50, "All"]
                     ], // Controls the page length options
                     pageLength: 10, // Default page length
@@ -281,7 +279,8 @@
                             title: 'Success!',
                             text: response.message,
                             icon: 'success',
-                            timer: 3000,
+                            showConfirmButton: false,
+                            timer: 1000,
                             toast: true,
                             position: 'top-end',
                         });
@@ -399,6 +398,5 @@
                 });
             });
         });
-        
     </script>
 @endpush
