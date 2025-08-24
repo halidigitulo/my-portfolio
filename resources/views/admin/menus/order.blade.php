@@ -12,7 +12,7 @@
                             @foreach ($menu->children as $child)
                                 <li class="list-group-item" data-id="{{ $child->id }}"
                                     data-name="{{ $child->name }}">
-                                    <span><i class="tf-icons bx bx-grid"></i> {{ $child->name }}</span>
+                                    <span><i class="tf-icons bx bx-grid"></i> {{ $child->name }} ({{ $child->sort_order }})</span>
                                 </li>
                             @endforeach
                         </ul>
