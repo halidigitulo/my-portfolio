@@ -7,14 +7,43 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoleController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $roles = Role::with('permissions')->get();
-            return response()->json(['roles' => $roles]);
+            $roles = Role::with('permissions')->select('roles.*');
+
+            return DataTables::of($roles)
+                ->addColumn('permissions', function ($role) {
+                    return $role->permissions->map(function ($p) {
+                        $color = 'secondary';
+                        if (str_contains($p->name, '.create')) $color = 'success';
+                        elseif (str_contains($p->name, '.read')) $color = 'info';
+                        elseif (str_contains($p->name, '.update')) $color = 'warning';
+                        elseif (str_contains($p->name, '.delete')) $color = 'danger';
+
+                        return "<span class='badge bg-{$color} me-1'>{$p->name}</span>";
+                    })->implode(' ');
+                })
+                ->addColumn('action', function ($role) {
+                    $editBtn = '';
+                    $deleteBtn = '';
+
+                    if (auth()->user()->can('roles.update')) {
+                        $editBtn = "<button class='btn btn-sm btn-outline-warning btn-icon btn-edit' data-id='{$role->id}'><span class='tf-icons bx bxs-edit'></span></button>";
+                    }
+
+                    if (auth()->user()->can('roles.delete')) {
+                        $deleteBtn = "<button class='btn btn-sm btn-outline-danger btn-icon btn-delete' data-id='{$role->id}'><span class='tf-icons bx bx-trash'></span></button>";
+                    }
+
+                    return $editBtn . ' ' . $deleteBtn;
+                })
+                ->rawColumns(['permissions', 'action']) // biar HTML badge dan tombol tidak di-escape
+                ->make(true);
         }
 
         $permissions = Permission::all();
@@ -23,6 +52,7 @@ class RoleController extends Controller
             [$module, $action] = explode('.', $perm->name);
             $groupedPermissions[$module][$action] = $perm;
         }
+
         return view('admin.roles.index', compact('permissions', 'groupedPermissions'));
     }
 

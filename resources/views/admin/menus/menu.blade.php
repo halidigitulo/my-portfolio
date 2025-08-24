@@ -1,8 +1,8 @@
 <div class="row my-3">
     <div class="col">
-        {{-- @can('menus.create') --}}
-        <button class="btn btn-primary mb-3" id="btn-add-menu"><i class="ri-add-line"></i> Add Menu</button>
-        {{-- @endcan --}}
+        @can('menus.create')
+            <button class="btn btn-primary mb-3" id="btn-add-menu"><i class="ri-add-line"></i> Add Menu</button>
+        @endcan
         <div class="table-responsive text-nowrap">
             <table class="table table-sm table-bordered table-hover table-striped" id="menu-table">
                 <thead>
@@ -140,7 +140,7 @@
                 $('.modal-title').text('Add Menu');
             });
 
-            $(document).on('click', '.edit-user', function() {
+            $(document).on('click', '.edit-menu', function() {
                 let id = $(this).data('id');
                 $.get(`/admin/menus/${id}`, function(data) {
                     $('#modalMenu').modal('show');
@@ -149,10 +149,9 @@
                     $('#menu_name').val(data.name);
                     $('#menu_url').val(data.url);
                     $('#menu_icon').val(data.icon);
-                    $('#menu_parent_id').val(data.parent_id);
-                    let parentSelect = document.querySelector('#menu_parent_id').tomselect;
-                    parentSelect.setValue(data.parent_id || '');
                     $('#menu_permission').val(data.permission_name);
+                    $('#menu_parent_id').val(data.parent_id).trigger('change');
+
                 });
             });
 
@@ -221,21 +220,14 @@
             });
 
         });
-    </script>
-    <script>
-        $('#modalMenu').on('shown.bs.modal', function() {
-            const selects = ['#menu_parent_id'];
+        $('#modalMenu').on('hidden.bs.modal', function() {
+            // Arahkan fokus ke tombol pemicu modal
+            $('#btnOpenModal').focus();
+        });
 
-            selects.forEach(function(selector) {
-                new TomSelect(selector, {
-                    sortField: {
-                        field: "text",
-                        direction: "asc"
-                    },
-                    // dropdownParent: $('#modal-personalia'), // Ensure the dropdown remains properly aligned in the modal
-                    closeAfterSelect: true // Optional: close dropdown after selecting an option
-                });
-            });
+        $('#modalMenu').on('hide.bs.modal', function() {
+            $(this).find(':focus').blur();
         });
     </script>
+    
 @endpush
