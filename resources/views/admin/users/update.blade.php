@@ -83,9 +83,7 @@
                         text: res.message,
                         timerProgressBar: true,
                         showConfirmButton: false,
-                        timer: 2000,
-                        background: '#28a745',
-                        color: '#fff'
+                        timer: 1000,
                     });
 
                     if (res.profile.profile_picture) {
@@ -102,7 +100,7 @@
                             position: 'top-end',
                             html: msg,
                             showConfirmButton: false,
-                            timer: 3000,
+                            timer: 1000,
                             background: '#dc3545',
                             color: '#fff'
                         });
