@@ -52,7 +52,7 @@
                     </svg>
                 @endif
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">{{ $profile->nama ?? '' }}</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2 text-capitalize">{{ $profile->nama ?? '' }}</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -101,47 +101,5 @@
         @endforeach
     </ul>
 
-
-    {{-- <!-- Dashboard -->
-    <li class="menu-item {{ Request::is('dashboard') ? 'active' : '' }}">
-        <a href="{{ route('dashboard') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Dashboard</div>
-        </a>
-    </li>
-
-    <!-- Layouts -->
-    <li class="menu-item open">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-layout"></i>
-            <div data-i18n="Layouts">Layouts</div>
-        </a>
-
-        <ul class="menu-sub">
-            <li class="menu-item">
-                <a href="layouts-without-menu.html" class="menu-link">
-                    <div data-i18n="Without menu">Without menu</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-    <!-- Misc -->
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-    <li class="menu-item">
-        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-        </a>
-    </li>
-    <li class="menu-item">
-        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-        </a>
-    </li>
-    </ul> --}}
 </aside>
 <!-- / Menu -->

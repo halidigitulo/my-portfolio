@@ -4,18 +4,14 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">@yield('title')</h4>
+                    @can('users.create')
+                        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#userModal"
+                            id="addUserButton">Add User</button>
+                    @endcan
                 </div>
                 <div class="card-body">
-                    @can('users.create')
-                        <div class="row">
-                            <div class="col">
-                                <a href="" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
-                                    data-bs-target="#userModal" id="addUserButton"><i class="ri-add-line"></i> Add User</a>
-                            </div>
-                        </div>
-                    @endcan
                     <div class="table-responsive-sm">
                         <table id="table_user" class="table table-hover table-striped table-sm">
                             <thead>
@@ -31,7 +27,7 @@
                             </thead>
                         </table>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -64,7 +60,7 @@
                         </div>
                         <div class="form-group">
                             <label for="role">Role</label>
-                            <select name="role_id" id="user_role_id" class="form-control select2">
+                            <select name="role_id" id="user_role_id" class="form-control select2 text-capitalize">
                                 <option value="">-- Pilih Role --</option>
                                 @foreach ($role as $r)
                                     <option value="{{ $r->id }}">{{ $r->name }}</option>

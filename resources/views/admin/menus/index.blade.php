@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body">
                     <div class="nav-align-top mb-4">
-                        <ul class="nav nav-pills" role="tablist">
+                        <ul class="nav nav-tabs nav-fill" role="tablist">
                             <li class="nav-item">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                                     data-bs-target="#navs-justified-home" aria-controls="navs-justified-home"
@@ -34,6 +34,44 @@
                                 @include('admin.menus.order')
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modalMenu" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form id="formMenu">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ri-add-line"></i> Add Menu</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @csrf
+                                    <input type="hidden" id="menu_id">
+                                    <input type="text" class="form-control mb-2" id="menu_name" placeholder="Name"
+                                        required>
+                                    <input type="text" class="form-control mb-2" id="menu_url"
+                                        placeholder="URL (default: #)">
+                                    <input type="text" class="form-control mb-2" id="menu_icon"
+                                        placeholder="Icon (default: circle-line)">
+                                    <select class="mb-2 form-select select2" id="menu_parent_id" name="parent_id">
+                                        <option value="">-- No Parent (Root) --</option>
+                                        @foreach ($menus as $menu)
+                                            <option value="{{ $menu->id }}">{{ $menu->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <input type="text" class="form-control mb-2" id="menu_permission"
+                                        name="permission_name" placeholder="Permission Name">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success"><i class="tf-icons bx bx-save"></i>
+                                        Save</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                            class="tf-icons bx bx-x"></i> Cancel</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

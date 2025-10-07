@@ -4,15 +4,16 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"><i class="ri-settings-line"></i> @yield('title')</h4>
+                <div class="card-header d-flex justify-content-between align-items-center">
+
+                    <h4 class="card-title">@yield('title')</h4>
+                    @can('roles.create')
+                        <button class="btn btn-primary mb-3" id="btn-add-role">Add Role</button>
+                    @endcan
                 </div>
                 <div class="card-body">
-                    {{-- @can('roles.create') --}}
-                    <button class="btn btn-primary mb-3" id="btn-add-role">+ Add Role</button>
-                    {{-- @endcan --}}
-                    <div class="table-reponsive">
-                        <table class="table table-bordered table-hover table-striped table-sm" id="role-table">
+                    <div class="table-reponsive-sm">
+                        <table class="table table-hover table-striped table-sm" id="role-table">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -53,7 +54,8 @@
                                             <div class="col d-flex justify-content-between">
                                                 <div>
                                                     <!-- ✅ Centang semua -->
-                                                    <input type="checkbox" id="checkAll" class="select-all form-check-input">
+                                                    <input type="checkbox" id="checkAll"
+                                                        class="select-all form-check-input">
                                                     <label for="checkAll" class="form-check-label">Modul</label>
                                                 </div>
                                             </div>
@@ -71,11 +73,13 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col d-flex justify-content-between">
-                                                    <div><input type="checkbox" class="form-check-input check-module text-end select-all"
+                                                    <div><input type="checkbox"
+                                                            class="form-check-input check-module text-end select-all"
                                                             data-module="{{ $module }}"
-                                                            id="check_{{ $module }}"> <label for="check_{{ $module }}"
+                                                            id="check_{{ $module }}"> <label
+                                                            for="check_{{ $module }}"
                                                             class="form-check-label">{{ ucfirst($module) }} </label></div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </td>
@@ -100,7 +104,7 @@
                         @can('roles.create')
                             <button type="submit" class="btn btn-success"><i class="tf-icons bx bx-save"></i> Save</button>
                         @endcan
-                        
+
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             <i class="tf-icons bx bx-x"></i> Cancel
                         </button>
@@ -431,10 +435,6 @@
                 });
             });
         });
-         
     </script>
-    <script>
-       
-        
-    </script>
+    <script></script>
 @endpush

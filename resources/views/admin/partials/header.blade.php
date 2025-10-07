@@ -19,17 +19,17 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/vendor/fonts/boxicons.css" />
-
+    
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('admin') }}/vendor/css/theme-default.css"
-        class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('admin') }}/css/demo.css" />
-
+    <link rel="stylesheet" href="{{ asset('admin/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('admin/vendor/css/theme-default.css') }}"
+    class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('admin/css/demo.css') }}" />
+    
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('admin') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset('admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('admin/vendor/fonts/boxicons.css') }}" />
 
 
     <!-- Page CSS -->

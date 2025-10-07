@@ -1,10 +1,10 @@
 <div class="row my-3">
     <div class="col">
         @can('menus.create')
-            <button class="btn btn-primary mb-3" id="btn-add-menu"><i class="ri-add-line"></i> Add Menu</button>
+            <button class="btn btn-primary mb-3" id="btn-add-menu">Add Menu</button>
         @endcan
-        <div class="table-responsive text-nowrap">
-            <table class="table table-sm table-bordered table-hover table-striped" id="menu-table">
+        <div class="table-responsive-sm text-nowrap">
+            <table class="table table-sm table-hover table-striped" id="menu-table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -21,42 +21,7 @@
             </table>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="modalMenu" tabindex="-1">
-            <div class="modal-dialog">
-                <form id="formMenu">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title"><i class="ri-add-line"></i> Add Menu</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            @csrf
-                            <input type="hidden" id="menu_id">
-                            <input type="text" class="form-control mb-2" id="menu_name" placeholder="Name" required>
-                            <input type="text" class="form-control mb-2" id="menu_url"
-                                placeholder="URL (default: #)">
-                            <input type="text" class="form-control mb-2" id="menu_icon"
-                                placeholder="Icon (default: circle-line)">
-                            <select class="mb-2 form-select select2" id="menu_parent_id" name="parent_id">
-                                <option value="">-- No Parent (Root) --</option>
-                                @foreach ($menus as $menu)
-                                    <option value="{{ $menu->id }}">{{ $menu->name }}</option>
-                                @endforeach
-                            </select>
-
-                            <input type="text" class="form-control mb-2" id="menu_permission" name="permission_name"
-                                placeholder="Permission Name">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success"><i class="tf-icons bx bx-save"></i> Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
-                                    class="tf-icons bx bx-x"></i> Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        
     </div>
 </div>
 @push('style')
@@ -151,7 +116,6 @@
                     $('#menu_icon').val(data.icon);
                     $('#menu_permission').val(data.permission_name);
                     $('#menu_parent_id').val(data.parent_id).trigger('change');
-
                 });
             });
 
@@ -233,21 +197,6 @@
 
         $('#modalMenu').on('hide.bs.modal', function() {
             $(this).find(':focus').blur();
-        });
-
-        $('#modalMenu').on('shown.bs.modal', function() {
-            const selects = ['#menu_parent_id'];
-
-            selects.forEach(function(selector) {
-                new TomSelect(selector, {
-                    sortField: {
-                        field: "text",
-                        direction: "asc"
-                    },
-                    // dropdownParent: $('#userModal'), // Ensure the dropdown remains properly aligned in the modal
-                    closeAfterSelect: true // Optional: close dropdown after selecting an option
-                });
-            });
         });
     </script>
 @endpush
