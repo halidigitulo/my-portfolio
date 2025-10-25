@@ -1,105 +1,100 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kwitansi Pembayaran</title>
     <style>
         @page {
-            size: A5 landscape;
-            margin: 15mm;
+            size: A4;
+            margin: 10mm;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #000;
             background: #fff;
-            color: #222;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
-        .container {
+        .kwitansi {
             width: 100%;
-            border: 2px solid #000;
-            padding: 20px;
-            border-radius: 6px;
+            max-width: 210mm;
+            height: 148.5mm; /* Setengah dari A4 */
+            border: 1px solid #000;
+            padding: 20px 25px;
+            box-sizing: border-box;
+            position: relative;
         }
 
         .header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
 
-        .logo {
-            width: 90px;
+        .header img {
+            height: 60px;
         }
 
         .company-info {
-            flex: 1;
-            text-align: left;
-            padding-left: 15px;
-        }
-
-        .company-info h2 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .company-info p {
-            margin: 0;
+            text-align: right;
             font-size: 12px;
+            line-height: 1.3;
         }
 
         .title {
             text-align: center;
             font-size: 18px;
             font-weight: bold;
+            margin-bottom: 15px;
             text-decoration: underline;
-            margin-bottom: 20px;
         }
 
-        table {
+        .content table {
             width: 100%;
-            font-size: 14px;
+            border-collapse: collapse;
+            font-size: 13px;
         }
 
-        td {
-            padding: 6px 0;
+        .content td {
+            padding: 5px 0;
+            vertical-align: top;
         }
 
-        .right {
-            text-align: right;
+        .content td:first-child {
+            width: 150px;
         }
 
         .amount {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            border: 1px solid #000;
-            padding: 5px;
-            text-align: right;
-            width: 250px;
+            color: #000;
         }
 
         .footer {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
             text-align: center;
-            font-size: 14px;
         }
 
         .signature {
-            width: 30%;
+            margin-top: 60px;
+            text-decoration: underline;
+            font-weight: bold;
         }
 
         .terbilang {
-            font-style: italic;
-            font-size: 13px;
             margin-top: 10px;
+            font-style: italic;
+            font-size: 12px;
+            color: #444;
         }
 
         @media print {
@@ -109,50 +104,54 @@
         }
     </style>
 </head>
-
-<body onload="window.print()">
-    <div class="container">
+<body>
+    <div class="kwitansi">
         <div class="header">
-            <img src="{{ asset('uploads/' . $profile->logo) }}" class="logo" alt="Logo">
+            <div class="logo">
+                <img src="{{ asset('uploads/'. $profile->logo) }}" alt="Logo">
+            </div>
             <div class="company-info">
-                <h2>{{ $profile->nama }}</h2>
-                <p>{{ $profile->alamat }}</p>
-                <p>Telp: {{ $profile->telp }} | Email: {{ $profile->email }}</p>
+                <strong>{{ $profile->nama ?? 'Nama Perusahaan' }}</strong><br>
+                {{ $profile->alamat ?? 'Alamat Lengkap' }}<br>
+                Telp: {{ $profile->telp ?? '-' }} | Email: {{ $profile->email ?? '-' }}
             </div>
         </div>
 
         <div class="title">KWITANSI PEMBAYARAN</div>
 
-        <table>
-            <tr>
-                <td width="150">Telah diterima dari</td>
-                <td>: {{ $invoice->client->nama ?? $invoice->terima_dari }}</td>
-            </tr>
-            <tr>
-                <td>Sejumlah uang</td>
-                <td>: <strong>Rp {{ number_format($invoice->jumlah, 0, ',', '.') }}</strong></td>
-            </tr>
-            <tr>
-                <td>Terbilang</td>
-                <td>: <span class="terbilang">{{ ucfirst($terbilang) }} Rupiah</span></td>
-            </tr>
-            <tr>
-                <td>Untuk pembayaran</td>
-                <td>: {{ $invoice->keterangan ?? '-' }}</td>
-            </tr>
-        </table>
+        <div class="content">
+            <table>
+                <tr>
+                    <td>Nomor Kwitansi</td>
+                    <td>: {{ $invoice->no_invoice ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td>Telah diterima dari</td>
+                    <td>: {{ $invoice->client->nama ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td>Untuk pembayaran</td>
+                    <td>: {{ $invoice->keterangan ?? 'Jasa Pembuatan Website' }}</td>
+                </tr>
+                <tr>
+                    <td>Jumlah</td>
+                    <td class="amount">: Rp {{ number_format($invoice->jumlah, 0, ',', '.') }}</td>
+                </tr>
+            </table>
 
-        <div class="footer">
-            <div class="signature"></div>
-            <div class="signature">
-                <p>{{$profile->kota}}, {{ \App\Helpers\FormatHelper::tanggalIndonesia($invoice->tgl_invoice) }}</p>
-                <p>Hormat Kami,</p>
-                <br><br><br>
-                <p><strong>__________________________</strong></p>
-                {{-- <p>Admin</p> --}}
+            <div class="terbilang">
+                Terbilang: <strong>{{ ucwords($terbilang) }} Rupiah</strong>
             </div>
         </div>
+
+        <div class="footer">
+            <div>{{$profile->kota}}, {{ \App\Helpers\FormatHelper::tanggalIndonesia($invoice->tgl_invoice) }}</div>
+            <div class="signature">{{ $profile->direktur ?? 'Pimpinan Perusahaan' }}</div>
+        </div>
+    </div>
+
+    <div class="no-print" style="text-align:center; margin-top:10px;">
+        <button onclick="window.print()">🖨 Cetak Kwitansi</button>
     </div>
 </body>
-
 </html>

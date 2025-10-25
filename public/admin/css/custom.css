@@ -1,0 +1,439 @@
+@import url("https://rsms.me/inter/inter.css");
+:root {
+    --tblr-font-sans-serif: "Inter Var", -apple-system, BlinkMacSystemFont,
+        San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+}
+
+html {
+    overflow-x: hidden;
+    scroll-padding-top: 7rem;
+    font-size: 85%;
+}
+
+html::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: #4154f1;
+}
+
+body {
+    font-feature-settings: "cv03", "cv04", "cv11";
+}
+
+.table-personalia .center-align {
+    text-align: center; /* Horizontal alignment */
+    vertical-align: middle; /* Vertical alignment */
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        top: 50%;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        top: 50%;
+        opacity: 0;
+    }
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+.ts-control {
+    border: none !important;
+    padding: 2px 2px !important;
+}
+
+.dt-button.buttons-excel {
+    background-color: #28a745;
+    /* Green for Excel */
+    color: white;
+    border-radius: 5px;
+}
+
+.dt-button.buttons-excel:hover {
+    color: #1e7e34;
+    border: none;
+}
+
+.dt-button.buttons-pdf {
+    background-color: #dc3545;
+    /* Red for PDF */
+    color: white;
+    border-radius: 5px;
+}
+
+.dt-button.buttons-pdf:hover {
+    color: #dc3545;
+}
+
+.dt-search {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    #date-day-time {
+        display: none;
+    }
+
+    .dt-search {
+        justify-content: center;
+    }
+
+    .card-header,
+    .btn-text {
+        display: none;
+    }
+}
+
+.dt-info,
+.dt-paging {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.dt-paging-button.current {
+    border-radius: 5px;
+}
+
+/* Add this to your main CSS file (e.g., public/css/app.css) */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.square-image {
+    width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height to ensure 1:1 aspect ratio */
+    object-fit: cover; /* Ensures the image scales and fills the square without distortion */
+    border-radius: none; /* For a circular shape, you can use border-radius */
+}
+
+.image-container {
+    width: 200px; /* Set width based on the container's size */
+    padding-top: 200px; /* 1:1 aspect ratio with padding (square) */
+    position: relative;
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#pet-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px; /* Adjust based on the height of the pets */
+    pointer-events: none; /* Pets won't block user interaction */
+}
+
+.walking-pet {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 50px; /* Adjust based on pet size */
+    height: auto;
+    display: none; /* Hidden by default */
+    animation: walk linear infinite;
+}
+
+@keyframes walk {
+    0% {
+        left: -100px;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 15px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+input:checked + .slider {
+    background-color: #2196f3;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row; /* Display stars in a row from left to right */
+    justify-content: center;
+    font-size: 2rem;
+    color: #ddd; /* Default color for unselected stars */
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    font-size: 2rem;
+    color: #ddd; /* Default unselected color */
+}
+
+.rating input {
+    display: none; /* Hide radio buttons */
+}
+
+.rating label {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+/* Highlight stars up to the hovered one */
+.rating label:hover,
+.rating label:hover ~ label {
+    color: gold; /* Highlight stars up to the hovered one */
+}
+
+/* Keep stars up to the selected one highlighted */
+.rating input:checked ~ label {
+    color: gold; /* Persist selected stars' color */
+}
+
+/* Reset stars after the selected or hovered one */
+.rating input:checked ~ label:hover ~ label {
+    color: #ddd; /* Reset stars after the hovered one */
+}
+
+.order-container {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.order-header {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.menu-name {
+    width: 50%; /* Static width for the menu name */
+    white-space: normal; /* Allow wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate if necessary */
+}
+
+.qty-control {
+    width: 25%; /* Static width for the quantity control */
+    text-align: center; /* Center the buttons and quantity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.subtotal {
+    width: 25%; /* Static width for the subtotal */
+    text-align: right; /* Align subtotal to the right */
+}
+
+.order-item span {
+    flex-shrink: 0;
+}
+
+.menu-list {
+    height: 450px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.order-list {
+    height: 300px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+    margin-bottom: 10px;
+}
+
+.menu-list::-webkit-scrollbar {
+    display: none;
+}
+
+.order-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background-color: #ffffff;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-footer p,
+.order-footer label {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.order-footer .form-control {
+    height: 2.5rem;
+    font-size: 1rem;
+}
+
+.custom-bg-success {
+    background-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.custom-bg-danger {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+}
+
+.neon-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+}
+.neon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+.neon-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    color: #888;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 
+                 0 0 10px rgba(255, 255, 255, 0.6), 
+                 0 0 20px rgba(255, 255, 255, 0.4);
+    margin-bottom: 1.5rem;
+}
+
+
+/* .menu-list {
+    height: 300px;
+    overflow-y: auto; 
+    scrollbar-width: thin; 
+    scrollbar-color: #888 transparent; 
+}
+
+.menu-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menu-list::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+.menu-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px; 
+}
+
+.menu-list::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+} */
+
+/* .search-bar {
+    position: relative;
+}
+
+#searchResults {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: white;
+    display: none;
+}
+
+#searchResults .list-group-item {
+    cursor: pointer;
+}
+
+#searchResults .list-group-item:hover,
+#searchResults .list-group-item.active {
+    background-color: #007bff;
+    color: white;
+} */

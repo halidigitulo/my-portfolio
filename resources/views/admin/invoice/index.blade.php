@@ -224,7 +224,7 @@
                 // Menampilkan SweetAlert konfirmasi
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: 'Status invoice ini akan diubah!',
+                    text: 'Ubah Status Invoice menjadi Paid!',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

@@ -64,12 +64,30 @@
                             <label for="testimoni">Testimoni</label>
                             <textarea class="form-control" id="testimoni" name="testimoni" rows="3" required></textarea>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="rating">Rating</label>
                             <input type="number" min="0" max="100" class="form-control" id="rating"
                                 name="rating" autocomplete="off" required>
-                        </div>
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="rating" class="form-label">Rating</label>
+                            <div class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" />
+                                <label for="star5" title="5 stars">&#9733;</label>
 
+                                <input type="radio" id="star4" name="rating" value="4" />
+                                <label for="star4" title="4 stars">&#9733;</label>
+
+                                <input type="radio" id="star3" name="rating" value="3" />
+                                <label for="star3" title="3 stars">&#9733;</label>
+
+                                <input type="radio" id="star2" name="rating" value="2" />
+                                <label for="star2" title="2 stars">&#9733;</label>
+
+                                <input type="radio" id="star1" name="rating" value="1" />
+                                <label for="star1" title="1 star">&#9733;</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         @can('testimoni.create')
@@ -99,6 +117,7 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+
         $(document).ready(function() {
             fetchData();
             // Include CSRF token in all AJAX requests
@@ -152,6 +171,15 @@
                         {
                             data: 'rating',
                             name: 'rating',
+                            render: function(data, type, row) {
+                                if (!data) return '-';
+                                let stars = '';
+                                for (let i = 1; i <= 5; i++) {
+                                    stars +=
+                                        `<span style="color:${i <= data ? '#ffc107' : '#ddd'};">&#9733;</span>`;
+                                }
+                                return `<div class="text-left">${stars}</div>`;
+                            }
                         },
                         {
                             data: 'aksi',
@@ -185,6 +213,14 @@
                 $('#testimoniModal').modal('show'); // Show modal
             });
 
+            document.querySelectorAll('.rating input').forEach((radio) => {
+                radio.addEventListener('change', (e) => {
+                    const selectedRating = e.target.value;
+                    console.log(`Selected Rating: ${selectedRating}`);
+                    // You can also update a hidden field if needed:
+                    // document.getElementById('hiddenRate').value = selectedRating;
+                });
+            });
 
             $(document).on('click', '.edit-testimoni', function() {
                 const id = $(this).data('id'); // Ambil ID dari tombol yang diklik
@@ -199,9 +235,17 @@
                         $('#testimoni_id').val(data.id);
                         $('#nama').val(data.nama);
                         $('#pekerjaan').val(data.pekerjaan);
-                        $('#rating').val(data.rating);
+                        // $('#rating').val(data.rating);
+                        // 🔹 Reset semua radio rating dulu
+                        $('input[name="rating"]').prop('checked', false);
+
+                        // 🔹 Pilih rating sesuai data dari database
+                        if (data.rating) {
+                            $(`input[name="rating"][value="${data.rating}"]`).prop('checked',
+                                true);
+                        }
                         $('#testimoni').val(data.testimoni);
-                         // 🔹 Tampilkan thumbnail
+                        // 🔹 Tampilkan thumbnail
                         if (data.foto) {
                             $('#preview-foto')
                                 .attr('src', `/uploads/testimonis/${data.foto}`)

@@ -15,7 +15,7 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = invoice::select('no_invoice','client_id','terima_dari','tgl_invoice','jumlah','status','keterangan')->get();
+            $data = invoice::select('id','no_invoice','client_id','terima_dari','tgl_invoice','jumlah','status','keterangan')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('client', function ($client) {
@@ -54,7 +54,6 @@ class InvoiceController extends Controller
     public function storeOrUpdate(Request $request, $id = null)
     {
         $invoice = [
-
             'client_id' => 'nullable|string',
             'terima_dari' => 'nullable|string',
             'tgl_invoice' => 'nullable|date',
