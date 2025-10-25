@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BackupRestoreController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
@@ -67,6 +68,16 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
             Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
             Route::post('profile/update', [UserController::class, 'updateProfile'])->name('users.updateProfile');
+        });
+
+        Route::group(['prefix' => 'backup-restore'], function () {
+            Route::get('', [BackupRestoreController::class, 'index'])->name('backup-restore.index');
+            Route::get('backup', [BackupRestoreController::class, 'backup'])->name('backup-restore.backup');
+            Route::get('/list', [BackupRestoreController::class, 'list'])->name('backup-restore.list');
+            Route::get('/download/{file}', [BackupRestoreController::class, 'download'])->where('file', '.*')->name('backup-restore.download');
+            Route::delete('/delete/{file}', [BackupRestoreController::class, 'delete'])->where('file', '.*')->name('backup-restore.delete');
+            Route::post('restore', [BackupRestoreController::class, 'restore'])->name('backup-restore.restore');
+            Route::post('reset', [BackupRestoreController::class, 'reset'])->name('backup-restore.reset');
         });
 
         Route::group(['prefix' => 'profile'], function () {
