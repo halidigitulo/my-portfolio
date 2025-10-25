@@ -6,8 +6,8 @@
             <script>
                 document.write(new Date().getFullYear());
             </script>
-            , Made with ❤️ by
-            <a href="https://bucumedia.com" target="_blank" class="footer-link fw-bolder">Bucumedia</a>
+            Made with ❤️ by
+            <a href="https://bucumedia.id" target="_blank" class="footer-link fw-bolder">Bucumedia</a>
         </div>
 
     </div>

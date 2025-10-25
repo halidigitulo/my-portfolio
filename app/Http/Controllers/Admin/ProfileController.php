@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
 
         // Handle logo upload
-        $files = ['logo', 'icon', 'cover'];
+        $files = ['logo', 'icon', 'cover', 'hero'];
 
         foreach ($files as $file) {
             if ($request->hasFile($file)) {

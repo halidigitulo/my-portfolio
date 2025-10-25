@@ -9,29 +9,33 @@
                 </div>
                 <div class="card-body">
                     <div class="nav-align-top mb-4">
-                        <ul class="nav nav-tabs nav-fill" role="tablist">
-                            <li class="nav-item">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                                    data-bs-target="#navs-justified-home" aria-controls="navs-justified-home"
-                                    aria-selected="true">
-                                    <i class="tf-icons bx bx-home"></i> Home
-                                    {{-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span> --}}
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                    data-bs-target="#navs-justified-profile" aria-controls="navs-justified-profile"
-                                    aria-selected="false">
-                                    <i class="tf-icons bx bx-sort"></i> Sort Order Menu
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
-                                @include('admin.menus.menu')
-                            </div>
-                            <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
-                                @include('admin.menus.order')
+                        <div class="row">
+                            <div class="col">
+                                <ul class="nav nav-tabs nav-fill" role="tablist">
+                                    <li class="nav-item">
+                                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-justified-home" aria-controls="navs-justified-home"
+                                            aria-selected="true">
+                                            <i class="tf-icons bx bx-home"></i> Home
+                                            {{-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span> --}}
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-justified-profile" aria-controls="navs-justified-profile"
+                                            aria-selected="false">
+                                            <i class="tf-icons bx bx-sort"></i> Sort Order Menu
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
+                                        @include('admin.menus.menu')
+                                    </div>
+                                    <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                                        @include('admin.menus.order')
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -54,7 +58,7 @@
                                         placeholder="URL (default: #)">
                                     <input type="text" class="form-control mb-2" id="menu_icon"
                                         placeholder="Icon (default: circle-line)">
-                                    <select class="mb-2 form-select select2" id="menu_parent_id" name="parent_id">
+                                    <select class="mb-2 form-control select2" id="menu_parent_id" name="parent_id">
                                         <option value="">-- No Parent (Root) --</option>
                                         @foreach ($menus as $menu)
                                             <option value="{{ $menu->id }}">{{ $menu->name }}</option>
@@ -93,6 +97,20 @@
             $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
                 var activeTab = $(e.target).attr('data-bs-target');
                 localStorage.setItem('activeTab', activeTab);
+            });
+        });
+        $('#modalMenu').on('shown.bs.modal', function() {
+            const selects = ['#menu_parent_id'];
+
+            selects.forEach(function(selector) {
+                new TomSelect(selector, {
+                    sortField: {
+                        field: "text",
+                        direction: "asc"
+                    },
+                    // dropdownParent: $('#userModal'), // Ensure the dropdown remains properly aligned in the modal
+                    closeAfterSelect: true // Optional: close dropdown after selecting an option
+                });
             });
         });
     </script>

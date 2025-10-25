@@ -9,7 +9,8 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset($profile->logo ? ('uploads/'.$profile->logo) : 'admin/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon"
+        href="{{ asset($profile->logo ? 'uploads/' . $profile->logo : 'admin/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,17 +20,19 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('admin/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('admin/vendor/css/theme-default.css') }}"
-    class="template-customizer-theme-css" />
+        class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('admin/css/demo.css') }}" />
-    
+    <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}" />
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('admin/vendor/fonts/boxicons.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('admin/vendor/fonts/boxicons.css') }}" /> --}}
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 
 
     <!-- Page CSS -->

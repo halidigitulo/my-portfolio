@@ -2,7 +2,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="/dashboard" class="app-brand-link">
+        <a href="/" class="app-brand-link" target="_blank">
             <span class="app-brand-logo demo">
                 @if ($profile->logo ?? '')
                     <img src="{{ asset('uploads/' . $profile->logo) }}" alt="{{ $profile->nama }}" class="rounded"

@@ -7,23 +7,22 @@
             <div class="col-lg-6 hero-content" data-aos="fade-right" data-aos-delay="100">
                 <div class="content-wrapper">
                     <h1 class="hero-title">Creative <span class="typed"
-                            data-typed-items="Designer, Developer, Freelancer, Artist"></span></h1>
-                    <p class="lead">I create digital experiences that inspire and engage. With a passion for clean
-                        design and innovative solutions, I transform ideas into beautiful, functional realities.</p>
+                            data-typed-items="{{$generalsettings->hero_title}}"></span></h1>
+                    <p class="lead">{{$generalsettings->hero_text}}</p>
 
                     <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
                         <div class="stat-item">
-                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="150"
+                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="{{$generalsettings->projects}}"
                                 data-purecounter-duration="2">0</span>
                             <span class="stat-label">Projects Completed</span>
                         </div>
                         <div class="stat-item">
-                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="5"
+                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="{{$generalsettings->experiences}}"
                                 data-purecounter-duration="2">0</span>
                             <span class="stat-label">Years Experience</span>
                         </div>
                         <div class="stat-item">
-                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="98"
+                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="{{$generalsettings->clients}}"
                                 data-purecounter-duration="2">0</span>
                             <span class="stat-label">Happy Clients</span>
                         </div>
@@ -59,7 +58,7 @@
                             <span>Creative Ideas</span>
                         </div>
                     </div>
-                    <img src="{{ asset('front') }}/img/profile/profile-square-1.png" alt="Portfolio Hero"
+                    <img src="{{ asset('uploads/'. $profile->hero) }}" alt="Portfolio Hero"
                         class="img-fluid hero-main-image" style="height: 100%; width: 100%;">
                     <div class="image-overlay"></div>
                 </div>

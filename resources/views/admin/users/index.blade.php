@@ -12,12 +12,12 @@
                     @endcan
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive-sm">
+                    <div class="table-responsive-md">
                         <table id="table_user" class="table table-hover table-striped table-sm">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>profile_picture</th>
+                                    <th>Avatar</th>
                                     <th>Nama</th>
                                     <th>Username</th>
                                     <th>Role</th>
@@ -27,7 +27,6 @@
                             </thead>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

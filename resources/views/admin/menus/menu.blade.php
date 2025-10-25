@@ -3,7 +3,7 @@
         @can('menus.create')
             <button class="btn btn-primary mb-3" id="btn-add-menu">Add Menu</button>
         @endcan
-        <div class="table-responsive-sm text-nowrap">
+        <div class="table-responsive-md text-nowrap">
             <table class="table table-sm table-hover table-striped" id="menu-table">
                 <thead>
                     <tr>
@@ -20,8 +20,6 @@
                 {{-- <tbody></tbody> --}}
             </table>
         </div>
-
-        
     </div>
 </div>
 @push('style')
@@ -199,4 +197,5 @@
             $(this).find(':focus').blur();
         });
     </script>
+    
 @endpush

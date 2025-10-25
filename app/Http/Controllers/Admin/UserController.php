@@ -123,6 +123,11 @@ class UserController extends Controller
             abort(403, 'Anda tidak punya akses untuk menghapus user');
         }
         $user = User::findOrFail($id);
+
+        if ($user->profile_picture && file_exists(public_path('uploads/users/' . $user->profile_picture))) {
+            unlink(public_path('uploads/users/' . $user->profile_picture));
+        }
+
         $user->delete();
 
         return response()->json([
