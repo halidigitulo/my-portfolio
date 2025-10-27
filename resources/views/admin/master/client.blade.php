@@ -198,7 +198,7 @@
             $('#addClientButton').click(function() {
                 $('#clientForm')[0].reset(); // Clear the form
                 $('#client_id').val(''); // Clear hidden input
-                $('#clientModalLabel').text('Add client'); // Set modal title
+                $('#clientModalLabel').text('Add Client'); // Set modal title
                 $('#saveclient').text('Create'); // Change button text
                 $('#clientModal').modal('show'); // Show modal
             });
@@ -207,7 +207,7 @@
                 const id = $(this).data('id'); // Ambil ID dari tombol yang diklik
 
                 $.ajax({
-                    url: `/admin/clients/${id}`,
+                    url: `/admin/client/${id}`,
                     type: 'GET',
                     headers: {
                         'Accept': 'application/json'
@@ -245,8 +245,8 @@
                 e.preventDefault(); // Prevent default form submission
 
                 let id = $('#client_id').val();
-                let url = id ? `/admin/clients/${id}` :
-                    '/admin/clients'; // Update if ID exists, otherwise create
+                let url = id ? `/admin/client/${id}` :
+                    '/admin/client'; // Update if ID exists, otherwise create
                 let method = id ? 'POST' :
                     'POST'; // Laravel doesn't support PUT with FormData in jQuery
 

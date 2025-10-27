@@ -159,7 +159,8 @@ class BackupRestoreController extends Controller
             DB::table('product_stack')->truncate();
             DB::table('projects')->truncate();
             DB::table('services')->truncate();
-            DB::table('stacks')->truncate();
+            // DB::table('stacks')->truncate();
+            DB::table('testimonis')->truncate();
 
             DB::statement('ALTER TABLE clients AUTO_INCREMENT = 1');
             DB::statement('ALTER TABLE invoices AUTO_INCREMENT = 1');
@@ -168,7 +169,8 @@ class BackupRestoreController extends Controller
             DB::statement('ALTER TABLE product_stack AUTO_INCREMENT = 1');
             DB::statement('ALTER TABLE projects AUTO_INCREMENT = 1');
             DB::statement('ALTER TABLE services AUTO_INCREMENT = 1');
-            DB::statement('ALTER TABLE stacks AUTO_INCREMENT = 1');
+            // DB::statement('ALTER TABLE stacks AUTO_INCREMENT = 1');
+            DB::statement('ALTER TABLE testimonis AUTO_INCREMENT = 1');
 
             // DB::commit();
 

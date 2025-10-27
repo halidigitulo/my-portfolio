@@ -12,7 +12,7 @@
                             id="addpostButton">Add Post</button>
                     @endcan
                 </div>
-                
+
                 <div class="card-body">
                     <div class="table-responsive-md">
                         <table id="table_post" class="table table-hover table-striped table-sm">
@@ -112,7 +112,6 @@
 @endsection
 @push('style')
     <link href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
 @endpush
@@ -129,6 +128,19 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+
+        let tagSelect;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            tagSelect = new TomSelect("#tag", {
+                persist: false,
+                createOnBlur: true,
+                create: true,
+                delimiter: ',',
+                hideSelected: true,
+            });
+        });
+
 
         $(document).ready(function() {
             fetchData();
@@ -295,19 +307,36 @@
                         'Accept': 'application/json'
                     },
                     success: function(data) {
-
-                        // Isi field dasar
                         $('#post_id').val(data.id);
                         $('#judul').val(data.judul);
                         $('#slug').val(data.slug);
                         $('#kategori_id').val(data.kategori_id);
                         $('#is_slider').val(data.is_slider);
-                        $('#tag').val(data.tag);
+                        // $('#tag').val(data.tag);
+                        // ✅ Isi field tag menggunakan Tom Select
+                        if (data.tag) {
+                            // Jika tag disimpan sebagai string dengan koma
+                            let tagsArray = data.tag.split(',').map(tag => tag.trim());
 
-                        // 🔹 Isi Summernote (deskripsi)
+                            // Hapus tag sebelumnya
+                            tagSelect.clear();
+
+                            // Tambahkan tag baru satu per satu (otomatis create jika belum ada)
+                            tagsArray.forEach(tag => {
+                                tagSelect.addOption({
+                                    value: tag,
+                                    text: tag
+                                });
+                                tagSelect.addItem(tag);
+                            });
+                        } else {
+                            tagSelect.clear();
+                        }
+
+                        // Isi Summernote
                         $('#isi').summernote('code', data.isi || '');
 
-                        // 🔹 Tampilkan thumbnail
+                        // Tampilkan thumbnail
                         if (data.thumbnail) {
                             $('#preview-thumbnail')
                                 .attr('src', `/uploads/posts/${data.thumbnail}`)
@@ -317,11 +346,9 @@
                             $('#preview-thumbnail').addClass('d-none').hide();
                         }
 
-                        // 🔹 Ubah teks modal
+                        // Ubah teks modal dan tampilkan
                         $('#postModalLabel').text('Edit Data');
                         $('#savepost').text('Update');
-
-                        // 🔹 Tampilkan modal
                         $('#postModal').modal('show');
                     },
                     error: function(err) {
@@ -521,15 +548,7 @@
             });
         })
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            new TomSelect("#tag", {
-                persist: false,
-                createOnBlur: true,
-                create: true,
-                delimiter: ',',
-                hideSelected: true
-            });
-        });
-    </script>
+    {{-- <script>
+        let tagSelect;
+    </script> --}}
 @endpush
