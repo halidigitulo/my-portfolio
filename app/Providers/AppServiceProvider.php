@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'profile' => Profile::first(),
                 'user' => Auth::user(),
+                'generalsettings' => \App\Models\GeneralSetting::first(),
+                'services' => \App\Models\Service::all(),
             ]);
         });
     }

@@ -18,6 +18,11 @@
                                             aria-controls="navs-pills-top-general" aria-selected="true">General</button>
                                     </li>
                                     <li class="nav-item">
+                                        <button class="nav-link" id="navs-pills-top-feature-tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-pills-top-feature" type="button" role="tab"
+                                            aria-controls="navs-pills-top-feature" aria-selected="true">Feature</button>
+                                    </li>
+                                    <li class="nav-item">
                                         <button class="nav-link" id="navs-pills-top-kategori-berita-tab"
                                             data-bs-toggle="tab" data-bs-target="#navs-pills-top-kategori-berita"
                                             type="button" role="tab" aria-controls="navs-pills-top-kategori-berita"
@@ -38,10 +43,20 @@
                                             aria-selected="false">Kategori
                                             Stack</button>
                                     </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" id="navs-pills-top-other-tab"
+                                            data-bs-toggle="tab" data-bs-target="#navs-pills-top-other"
+                                            type="button" role="tab" aria-controls="navs-pills-top-other"
+                                            aria-selected="false">Other</button>
+                                    </li>
+                                    
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="navs-pills-top-general" role="tabpanel">
                                         @include('admin.master.general')
+                                    </div>
+                                    <div class="tab-pane fade show" id="navs-pills-top-feature" role="tabpanel">
+                                        @include('admin.master.feature')
                                     </div>
                                     <div class="tab-pane fade" id="navs-pills-top-kategori-berita" role="tabpanel">
                                         @include('admin.master.kategori-berita')
@@ -52,6 +67,10 @@
                                     <div class="tab-pane fade" id="navs-pills-top-kategori-stack" role="tabpanel">
                                         @include('admin.master.kategori-stack')
                                     </div>
+                                    <div class="tab-pane fade" id="navs-pills-top-other" role="tabpanel">
+                                        @include('admin.master.other')
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

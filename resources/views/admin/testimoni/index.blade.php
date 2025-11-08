@@ -23,6 +23,7 @@
                                     <th>Pekerjaan</th>
                                     <th>Testimoni</th>
                                     <th>Rating</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -88,6 +89,13 @@
                                 <label for="star1" title="1 star">&#9733;</label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="0">Pending</option>
+                                <option value="1">Accepted</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         @can('testimoni.create')
@@ -120,6 +128,7 @@
 
         $(document).ready(function() {
             fetchData();
+
             // Include CSRF token in all AJAX requests
             $.ajaxSetup({
                 headers: {
@@ -182,6 +191,16 @@
                             }
                         },
                         {
+                            data: 'status',
+                            name: 'status',
+                            orderable: false,
+                            render: function(data, type, row) {
+                                let checked = data == 1 ? 'checked' : '';
+                                return `<input type="checkbox" class="form-check-input check-status" data-id="${row.id}" ${checked} />`;
+                                
+                            }
+                        },
+                        {
                             data: 'aksi',
                             name: 'aksi',
                             orderable: false
@@ -201,6 +220,14 @@
                         [10, 25, 50, "All"]
                     ], // Controls the page length options
                     pageLength: 10, // Default page length
+                    language: {
+                        lengthMenu: "Show _MENU_", // supaya tampil dropdown lengthMenu
+                        search: "Search:",
+                        paginate: {
+                            previous: "Prev",
+                            next: "Next"
+                        }
+                    }
                 })
             }
 
@@ -254,6 +281,7 @@
                         } else {
                             $('#preview-foto').addClass('d-none').hide();
                         }
+                        $('#status').val(data.status).trigger('change');
                         $('#testimoniModalLabel').text('Edit Testimoni');
                         $('#savetestimoni').text('Update');
                         $('#testimoniModal').modal('show');
@@ -316,6 +344,51 @@
                             position: 'top-end',
                         });
                     },
+                });
+            });
+
+            // update status via table
+            $(document).on('change', '.check-status', function() {
+                let status = $(this).is(':checked') ? 1 : 0;
+                let id = $(this).data('id');
+
+                $.ajax({
+                    url: `/admin/testimoni/${id}`, // Define your route for updating status
+                    type: 'PUT',
+                    data: {
+                        id: id,
+                        status: status,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            position: "top-end",
+                            width: '400px',
+                            icon: 'success',
+                            title: 'Sukses',
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1000,
+                            toast: true,
+                            background: '#28a745',
+                            color: '#fff'
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: xhr.responseJSON.text ||
+                                'An error occurred.',
+                            icon: 'error',
+                            position: 'top-end',
+                            width: '400px',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            toast: true,
+                            background: '#dc3545',
+                            color: '#fff'
+                        });
+                    }
                 });
             });
 

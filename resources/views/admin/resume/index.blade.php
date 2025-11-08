@@ -85,6 +85,8 @@
             </div>
         </div>
     </div>
+    @include('plugins.summernote')
+
 @endsection
 @push('style')
     <link href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -195,7 +197,9 @@
                         $('#resume_id').val(data.id);
                         $('#judul').val(data.judul);
                         $('#lokasi').val(data.lokasi);
-                        $('#deskripsi').val(data.deskripsi);
+                        // $('#deskripsi').val(data.deskripsi);
+                        // 🔹 Isi Summernote (deskripsi)
+                        $('#deskripsi').summernote('code', data.deskripsi || '');
                         $('#jenis').val(data.jenis);
                         $('#mulai_dari').val(data.mulai_dari);
                         $('#sampai_dengan').val(data.sampai_dengan);

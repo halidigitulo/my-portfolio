@@ -1,90 +1,80 @@
 <!-- About Section -->
-    <section id="about" class="about section">
+<section id="about" class="about section">
 
-      <!-- Section Title -->
-      <div class="container section-title">
-        <h2>About</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+    <!-- Section Title -->
+    <div class="container section-title">
+        <h2>Tentang Kami</h2>
+        <p>Tim kreatif yang menyediakan solusi digital inovatif untuk mengembangkan bisnis Anda di dunia online.</p>
+    </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row align-items-center">
 
-          <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
-            <div class="profile-image-wrapper">
-              <div class="profile-image">
-                <img src="{{asset('front')}}/img/profile/profile-square-1.webp" alt="Profile" class="img-fluid">
-              </div>
-              <div class="signature-section">
-                <img src="{{asset('front')}}/img/misc/signature-1.webp" alt="Signature" class="signature">
-                <p class="quote">Building meaningful digital experiences through creative code.</p>
-              </div>
+            <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
+                <div class="profile-image-wrapper">
+                    <div class="profile-image">
+                        {{-- <img src="{{asset('front')}}/img/profile/profile-square-1.webp" alt="Profile" class="img-fluid"> --}}
+                        <img src="{{ asset('uploads/' . $profile->hero) }}" alt="Profile" class="img-fluid" style="height: 350px; width:100%; object-fit:cover">
+                    </div>
+                    <div class="signature-section">
+                        <img src="{{ asset('uploads/' . $profile->signature) }}" alt="Signature" class="signature">
+                        {{-- <p class="quote">Building meaningful digital experiences through creative code.</p> --}}
+                        <p class="quote">{{ $profile->tagline ?? '' }}.</p>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
-            <div class="about-content">
-              <div class="intro">
-                <h2>Hi, I'm Brandon - a Creative Developer</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
-              </div>
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+                <div class="about-content">
+                    <div class="intro">
+                        <h2>Halo, Saya {{ $profile->direktur }} dari {{ $profile->nama }}</h2>
+                        <p>{!! $profile->isi !!}</p>
+                    </div>
 
-              <div class="skills-grid">
-                <div class="skill-item" data-aos="zoom-in" data-aos-delay="400">
-                  <div class="skill-icon">
-                    <i class="bi bi-palette"></i>
-                  </div>
-                  <h4>UI/UX Design</h4>
-                  <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar</p>
-                </div>
-                <div class="skill-item" data-aos="zoom-in" data-aos-delay="450">
-                  <div class="skill-icon">
-                    <i class="bi bi-code-slash"></i>
-                  </div>
-                  <h4>Frontend Dev</h4>
-                  <p>Sed porttitor lectus nibh. Cras ultricies ligula sed magna</p>
-                </div>
-                <div class="skill-item" data-aos="zoom-in" data-aos-delay="500">
-                  <div class="skill-icon">
-                    <i class="bi bi-camera"></i>
-                  </div>
-                  <h4>Photography</h4>
-                  <p>Vestibulum ac diam sit amet quam vehicula elementum</p>
-                </div>
-              </div>
+                    <div class="skills-grid">
+                        @foreach ($services as $index => $item)
+                            @php
+                                // Hitung delay animasi otomatis (misal: 300, 400, 500, ...)
+                                $delay = 300 + $index * 100;
 
-              <div class="journey-timeline" data-aos="fade-up" data-aos-delay="300">
-                <div class="timeline-item">
-                  <div class="year">2019</div>
-                  <div class="description">Graduated with B.A. in Digital Design from Creative University</div>
-                </div>
-                <div class="timeline-item">
-                  <div class="year">2020</div>
-                  <div class="description">Joined InnovateTech as Junior Frontend Developer</div>
-                </div>
-                <div class="timeline-item">
-                  <div class="year">2023</div>
-                  <div class="description">Launched freelance career specializing in creative web solutions</div>
-                </div>
-              </div>
+                            @endphp
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="{{ $delay }}">
+                                <div class="skill-icon">
+                                    <i class="bi bi-{{ $item->icon }}"></i>
+                                </div>
+                                <h4>{{ $item->judul }}</h4>
+                                <p>{!! $item->deskripsi !!}</p>
+                            </div>
+                        @endforeach
+                        
+                    </div>
 
-              <div class="cta-section" data-aos="fade-up" data-aos-delay="400">
-                <div class="fun-fact">
-                  <span class="emoji">☕</span>
-                  <span class="text">Coffee-fueled designer based in Portland</span>
-                </div>
-                <div class="action-buttons">
-                  <a href="#portfolio" class="btn btn-primary">View My Work</a>
-                  <a href="#" class="btn btn-outline">Download Resume</a>
-                </div>
-              </div>
+                    <div class="journey-timeline" data-aos="fade-up" data-aos-delay="300">
+                        @foreach ($resumes as $item)
+                            <div class="timeline-item">
+                                <div class="year">{{ $item->mulai_dari }}</div>
+                                <div class="description">{!! $item->deskripsi !!}</div>
+                            </div>
+                        @endforeach
+                    </div>
 
+                    <div class="cta-section" data-aos="fade-up" data-aos-delay="400">
+                        <div class="fun-fact">
+                            <span class="emoji">☕</span>
+                            <span class="text">{{$generalsettings->cta_text}}</span>
+                        </div>
+                        <div class="action-buttons">
+                            <a href="#portfolio" class="btn btn-primary">Lihat Portfolio</a>
+                            <a href="#" class="btn btn-outline">Download Resume</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-          </div>
 
         </div>
 
-      </div>
+    </div>
 
-    </section><!-- /About Section -->
+</section><!-- /About Section -->

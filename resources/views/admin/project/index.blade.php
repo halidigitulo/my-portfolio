@@ -22,6 +22,9 @@
                                     <th>Klien</th>
                                     <th>Kategori</th>
                                     <th>Link</th>
+                                    <th>Galeri</th>
+                                    <th>Stack</th>
+                                    <th>Fitur</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -53,6 +56,16 @@
                                     <img id="preview-thumbnail" alt="Preview" class="rounded img-fluid mt-2"
                                         style="max-width: 100px;" display="none">
                                 </div>
+                                <div class="form-group">
+                                    <label for="gallery">Gallery</label>
+                                    <input type="file" class="form-control" name="gallery[]" id="gallery" multiple
+                                        onchange="previewGallery(event)">
+                                    <div id="preview-gallery" class="d-flex flex-wrap mt-2"></div>
+                                </div>
+
+                                <!-- Tempat tampilkan gallery yang sudah ada -->
+                                <div id="existing-gallery" class="row mt-3 d-flex"></div>
+
                             </div>
                             <div class="col-md-10">
                                 <input type="hidden" id="project_id">
@@ -88,7 +101,30 @@
                                     <label for="deskripsi">Deskripsi</label>
                                     <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control"></textarea>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="stack" class="form-label">Stack</label>
+                                    <select id="stack" name="stacks[]" class="form-control select2"
+                                        multiple="multiple">
+                                        @foreach ($stacks as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ collect(old('stacks'))->contains($item->id) || (isset($project) && $project->stack->contains($item->id)) ? 'selected' : '' }}>
+                                                {{ $item->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="feature" class="form-label">Feature</label>
+                                    <select id="feature" name="features[]" class="form-control select2"
+                                        multiple="multiple">
+                                        @foreach ($features as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ collect(old('features'))->contains($item->id) || (isset($project) && $project->feature->contains($item->id)) ? 'selected' : '' }}>
+                                                {{ $item->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="link">Link Demo</label>
                                     <input type="text" class="form-control" id="link" name="link"
@@ -126,6 +162,46 @@
 @push('style')
     <link href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        #existing-gallery .position-relative {
+            transition: transform 0.2s ease;
+        }
+
+        #existing-gallery .position-relative:hover {
+            transform: scale(1.03);
+        }
+
+        #existing-gallery button {
+            opacity: 0.85;
+        }
+
+        #existing-gallery button:hover {
+            opacity: 1;
+        }
+
+        #existing-gallery {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            padding: 8px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        #existing-gallery img {
+            border: 1px solid #ddd;
+        }
+
+        table.dataTable td img {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+        }
+
+        table.dataTable td img:hover {
+            transform: scale(1.1);
+        }
+    </style>
 @endpush
 @push('scripts')
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
@@ -139,6 +215,86 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+
+        function previewGallery(event) {
+            const files = event.target.files;
+            const container = document.getElementById('preview-gallery');
+            container.innerHTML = ''; // Kosongkan preview sebelumnya
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('img-thumbnail', 'm-1');
+                    img.style.width = '80px';
+                    img.style.height = '80px';
+                    container.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function deleteGallery(id) {
+            Swal.fire({
+                title: 'Hapus gambar ini?',
+                text: "Tindakan ini tidak bisa dibatalkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/admin/project/gallery/${id}`,
+                        type: 'DELETE',
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(res) {
+                            if (res.success) {
+                                Swal.fire('Berhasil!', res.message, 'success');
+                                $(`#gallery-${id}`).remove(); // hapus elemen dari DOM
+                            } else {
+                                Swal.fire('Gagal!', res.message, 'error');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Error!', 'Terjadi kesalahan server.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Simpan instance agar bisa diakses ulang saat edit
+        let tomStack, tomFeature;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            tomStack = new TomSelect('#stack', {
+                plugins: ['remove_button'],
+                maxOptions: 100,
+                closeAfterSelect: false,
+                hideSelected: true,
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                }
+            });
+
+            tomFeature = new TomSelect('#feature', {
+                plugins: ['remove_button'],
+                maxOptions: 100,
+                closeAfterSelect: false,
+                hideSelected: true,
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                }
+            });
+        });
 
         $(document).ready(function() {
             fetchData();
@@ -195,6 +351,55 @@
                             name: 'link',
                         },
                         {
+                            data: 'galleries',
+                            name: 'galleries',
+                            render: function(data) {
+                                if (!data || data.length === 0) {
+                                    return '<small class="text-muted">Tidak ada</small>';
+                                }
+
+                                let html = '';
+                                data.forEach(g => {
+                                    html += `
+                        <img src="/uploads/projects/gallery/${g.filename}" 
+                             alt="${g.filename}" 
+                             class="rounded me-1 mb-1" 
+                             style="width:40px;height:40px;object-fit:cover;cursor:pointer;"
+                             onclick="window.open('/uploads/projects/gallery/${g.filename}', '_blank')">
+                    `;
+                                });
+                                return html;
+                            },
+                            orderable: false,
+                            searchable: false,
+                        },
+                        {
+                            data: 'stack',
+                            name: 'stack',
+                            orderable: false,
+                            render: function(data, type, row) {
+                                let badges = '';
+                                data.forEach(stack => {
+                                    badges +=
+                                        `<span class="badge bg-success">${stack.nama}</span> `;
+                                });
+                                return badges;
+                            }
+                        },
+                        {
+                            data: 'feature',
+                            name: 'feature',
+                            orderable: false,
+                            render: function(data, type, row) {
+                                let badges = '';
+                                data.forEach(feature => {
+                                    badges +=
+                                        `<span class="badge bg-success">${feature.nama}</span> `;
+                                });
+                                return badges;
+                            }
+                        },
+                        {
                             data: 'status',
                             name: 'status',
                             render: function(data, type, row) {
@@ -245,6 +450,7 @@
                     .then(data => slug.value = data.slug)
             });
 
+
             // Show modal for creating a new record
             $('#addprojectButton').click(function() {
                 $('#projectForm')[0].reset(); // Clear the form
@@ -288,6 +494,39 @@
                             $('#preview-thumbnail').addClass('d-none').hide();
                         }
 
+                        // 🔹 Bersihkan gallery lama dulu
+                        $('#existing-gallery').empty();
+
+                        // 🔹 Cek apakah ada gallery
+                        if (data.galleries && data.galleries.length > 0) {
+                            data.galleries.forEach(g => {
+                                $('#existing-gallery').append(`
+            <div class="position-relative mb-3" id="gallery-${g.id}">
+                <img src="/uploads/projects/gallery/${g.filename}" 
+                     class="img-fluid rounded" 
+                     style="width:100%; object-fit:cover;">
+                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                        onclick="deleteGallery(${g.id})">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        `);
+                            });
+                        }
+                        // 🔹 Isi relasi stack
+                        if (data.stack && Array.isArray(data.stack)) {
+                            tomStack.clear(); // reset pilihan lama
+                            const selectedStackIds = data.stack.map(s => s.id);
+                            tomStack.setValue(selectedStackIds);
+                        }
+
+                        // 🔹 Isi relasi feature
+                        if (data.feature && Array.isArray(data.feature)) {
+                            tomFeature.clear(); // reset pilihan lama
+                            const selectedFeatureIds = data.feature.map(f => f.id);
+                            tomFeature.setValue(selectedFeatureIds);
+                        }
+
                         // 🔹 Ubah teks modal
                         $('#projectModalLabel').text('Edit Data');
                         $('#saveproject').text('Update');
@@ -304,9 +543,7 @@
                             position: 'top-end',
                             showConfirmButton: false,
                             timer: 3000,
-                            customClass: {
-                                popup: 'zindex-99999'
-                            }
+
                         });
                     }
                 });
@@ -351,6 +588,7 @@
                             toast: true,
                             position: 'top-end',
                         });
+                        $('#stack').val(null).trigger('change');
                         $('#projectModal').modal('hide'); // Hide the modal
                         $('#projectForm')[0].reset(); // Reset the form
                     },

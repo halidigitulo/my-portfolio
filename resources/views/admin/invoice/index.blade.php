@@ -175,6 +175,14 @@
                         [10, 25, 50, "All"]
                     ], // Controls the page length options
                     pageLength: 10, // Default page length
+                    language: {
+                        lengthMenu: "Show _MENU_", // supaya tampil dropdown lengthMenu
+                        search: "Search:",
+                        paginate: {
+                            previous: "Prev",
+                            next: "Next"
+                        }
+                    }
                 })
             }
 

@@ -35,8 +35,23 @@ class Project extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function stack()
+    {
+        return $this->belongsToMany(Stack::class, 'project_stack', 'project_id', 'stack_id');
+    }
+
+    public function feature()
+    {
+        return $this->belongsToMany(Feature::class, 'feature_project', 'project_id', 'feature_id');
+    }
+
     public function kategori()
     {
         return $this->belongsTo(KategoriProject::class, 'category_id');
+    }
+
+    public function galleries()
+    {
+        return $this->hasMany(ProjectGallery::class);
     }
 }

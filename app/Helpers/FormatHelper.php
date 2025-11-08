@@ -70,6 +70,23 @@ class FormatHelper
         return $formatted . ' Hari';
     }
 
+    public static function diffIndonesia($date, $diffForHumans = false)
+    {
+        if (!$date) return null;
+
+        // Set locale ke bahasa Indonesia
+        $carbonDate = Carbon::parse($date)->locale('id');
+
+        // Jika $diffForHumans adalah true, maka tampilkan hasil diffForHumans dalam bahasa Indonesia
+        if ($diffForHumans) {
+            return $carbonDate->diffForHumans(); // Menggunakan diffForHumans dalam bahasa Indonesia
+        }
+
+        // Jika tidak, tampilkan format tanggal biasa
+        return $carbonDate->translatedFormat('d F Y'); // Format tanggal Indonesia (contoh: 21 Agustus 2025)
+    }
+
+
     public static function tanggalWaktuIndonesia($datetime)
     {
         if (!$datetime) return null;
@@ -99,6 +116,16 @@ class FormatHelper
         return Carbon::parse($date)
             ->locale('id')
             ->translatedFormat('d F Y');
+        // contoh output: 21 Agustus 2025
+    }
+
+    public static function bulanTahunIndonesia($date)
+    {
+        if (!$date) return null;
+
+        return Carbon::parse($date)
+            ->locale('id')
+            ->translatedFormat('F Y');
         // contoh output: 21 Agustus 2025
     }
 

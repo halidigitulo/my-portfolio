@@ -1,0 +1,521 @@
+/* General Accordion Style */
+.accordion-button {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 15px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
+}
+
+/* Active Accordion (Open) */
+.accordion-button:not(.collapsed) {
+    background-color: #c22257;
+    color: #fff;
+    border-color: #c22257;
+}
+
+/* Hover Effect for Accordion Button */
+.accordion-button:hover {
+    background-color: #c22257;
+    color: #fff;
+    border-color: #c22257;
+}
+
+/* Chevron Icon Change */
+.accordion-button .accordion-icon {
+    transition: transform 0.3s ease;
+    margin-right: 10px;
+}
+
+/* Rotate Icon when Opened */
+.accordion-button:not(.collapsed) .accordion-icon {
+    transform: rotate(180deg);
+}
+
+/* Accordion Body */
+.accordion-body {
+    font-size: 0.95rem;
+    color: #555;
+    padding: 15px;
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+    transition: all 0.3s ease;
+}
+
+/* Accordion Item Spacing */
+.accordion-item {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* First Accordion Header Styling */
+.accordion-header {
+    background-color: #f8f9fa;
+    padding: 0;
+    border-radius: 8px;
+}
+
+/* Add a subtle shadow to the accordion item */
+.accordion-item {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Style for Accordion when Expanded */
+.accordion-item.active .accordion-button {
+    background-color: #c22257;
+    color: #fff;
+    border-color: #c22257;
+}
+
+.section-title h2 {
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.section-title p {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.section-title .btn {
+    /* background-color: #c22257; */
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 50px;
+    border-color: #c22257;
+}
+
+.section-title .btn:hover {
+    background-color: #c22257;
+}
+
+.section-title .bi-arrow-right {
+    font-size: 1.2rem;
+}
+
+.client-profile img {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease; /* Menambahkan efek transisi yang halus */
+}
+
+.client-profile img:hover {
+    filter: grayscale(0%); /* Menampilkan gambar normal saat hover */
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styling */
+.comment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.comment-form .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border 0.3s ease;
+    color: #161616;
+}
+
+.comment-form .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+.comment-form button {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form button:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+
+#commentForm .form-group {
+    color: #161616;
+}
+
+.existing-comments h5 {
+    color: #161616;
+}
+
+/* Comment Card (Existing Comments) */
+.comment-card {
+    /* background-color: #fff; */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.comment-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.comment-header .comment-email {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.comment-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.comment-date {
+    font-size: 0.85rem;
+    color: #161616;
+    text-align: right;
+}
+
+#commentForm .loading {
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+}
+#commentForm .loading.show {
+    display: block;
+}
+
+.share-post {
+    /* border-top: 1px solid #eee; */
+    padding-top: 10px;
+}
+
+.share-post h5 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.share-post .btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out;
+}
+
+.share-post .btn:hover {
+    transform: scale(1.05);
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #333;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+}
+
+.toast.success {
+    background-color: #28a745;
+}
+
+.toast.error {
+    background-color: #dc3545;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #commentForm button {
+        width: 100%;
+    }
+
+    .comment-card {
+        margin-bottom: 15px;
+    }
+}
+
+/* .faq-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faq-item h3 {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.faq-content {
+    display: none;
+    padding-top: 10px;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+.faq-item.faq-active .faq-content {
+    display: block;
+}
+
+.faq-toggle {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.faq-active .faq-toggle {
+    transform: rotate(90deg);
+} */
+
+#pet-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    /* Adjust based on the height of the pets */
+    pointer-events: none;
+    z-index: 9999;
+    /* Pets won't block user interaction */
+}
+
+.walking-pet {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 50px;
+    /* Adjust based on pet size */
+    height: auto;
+    display: none;
+    /* Hidden by default */
+    animation: walk linear infinite;
+}
+
+@keyframes walk {
+    0% {
+        left: -100px;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.card.service-item {
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.card.service-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Efek zoom pada gambar */
+.hover-zoom {
+    transition: transform 0.4s ease;
+}
+
+.card.service-item:hover .hover-zoom {
+    transform: scale(1.08);
+}
+
+/* Tombol link */
+.card .btn-outline-primary {
+    border-width: 2px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.card .btn-outline-primary:hover {
+    background-color: #c22257;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Deskripsi lebih rapi */
+.card-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.product-card {
+    transition: all 0.35s ease;
+    background: #fff;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Efek zoom pada gambar */
+.hover-zoom {
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .hover-zoom {
+    transform: scale(1.08);
+}
+
+/* Tombol */
+.product-card .btn {
+    transition: all 0.3s ease;
+}
+
+.product-card .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Gaya teks */
+.product-card h5 {
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+}
+
+.product-card p {
+    line-height: 1.5;
+}
+
+/* Responsive gap fix */
+@media (max-width: 768px) {
+    .product-card h5 {
+        font-size: 1rem;
+    }
+}
+/* Efek animasi indikator autosave */
+.autosave-status {
+    transition: color 1s ease, opacity 1s ease;
+    opacity: 0.8;
+}
+
+.autosave-active {
+    color: #28a745 !important;
+    /* hijau */
+    opacity: 1;
+}
+
+.terms-content h3,
+.privacy-content h3 {
+    color: #2c3e50;
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+.terms-content p,
+.privacy-content p {
+    color: #555;
+    line-height: 1.7;
+}
+
+footer {
+    background-color: #343a40;
+    /* Background dark */
+    color: #fff;
+    /* Text color */
+}
+
+footer a {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #c22257;
+    /* Hover color */
+}
+
+.footer-logo img {
+    max-width: 150px;
+    margin-bottom: 15px;
+}
+
+.social-links a {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #c22257;
+    /* Hover color */
+}
+
+footer h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+footer .list-unstyled li {
+    margin-bottom: 10px;
+}
+
+footer .list-unstyled a {
+    color: #dcdcdc;
+    /* Soft white for text */
+    font-size: 0.9rem;
+}
+
+footer .list-unstyled a:hover {
+    color: #c22257;
+}
+
+@media (max-width: 767px) {
+    .footer-logo img {
+        max-width: 120px;
+    }
+
+    footer h5 {
+        font-size: 1rem;
+    }
+}

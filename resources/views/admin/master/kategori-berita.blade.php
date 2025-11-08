@@ -127,7 +127,6 @@
                         _token: $('input[name=_token]').val(),
                         _method: method,
                         nama: $('#kategori-berita_nama').val(),
-                        poin: $('#poin').val(),
                     },
                     success: function(res) {
                         $('#kategori-berita-table').DataTable().ajax.reload();

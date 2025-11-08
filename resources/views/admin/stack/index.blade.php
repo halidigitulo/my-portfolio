@@ -8,10 +8,9 @@
                     <h4 class="card-title">@yield('title')</h4>
                     @can('stack.create')
                         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#stackModal"
-                            id="addstackButton">Add stack</button>
+                            id="addstackButton">Add Stack</button>
                     @endcan
                 </div>
-               
                 <div class="card-body">
                     <div class="table-responsive-md">
                         <table id="table_stack" class="table table-hover table-striped table-sm">
@@ -121,7 +120,6 @@
                             data: 'kategori',
                             name: 'kategori',
                         },
-
                         {
                             data: 'aksi',
                             name: 'aksi',
@@ -190,7 +188,7 @@
 
                 let id = $('#stack_id').val();
                 let url = id ? `/admin/stack/${id}` :
-                    '/admin/stacks'; // Update if ID exists, otherwise create
+                    '/admin/stack'; // Update if ID exists, otherwise create
                 let method = id ? 'POST' :
                     'POST'; // Laravel doesn't support PUT with FormData in jQuery
 

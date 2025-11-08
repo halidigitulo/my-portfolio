@@ -14,5 +14,6 @@ class Testimoni extends Model
         'testimoni',
         'foto',
         'rating',
+        'status',
     ];
 }

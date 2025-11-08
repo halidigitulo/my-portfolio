@@ -1,29 +1,32 @@
 <!-- Faq Section -->
-    <section id="faq" class="faq section">
+<section id="faq" class="faq section">
 
-      <!-- Section Title -->
-      <div class="container section-title">
+    <!-- Section Title -->
+    <div class="container section-title">
         <h2>Frequently Asked Questions</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+        <p>Temukan jawaban atas pertanyaan umum tentang layanan dan produk kami.</p>
+    </div><!-- End Section Title -->
 
-      <div class="container">
+    <div class="container">
 
         <div class="row justify-content-center">
 
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="faq-container">
+                <div class="faq-container">
 
-              <div class="faq-item faq-active">
-                <h3>Non consectetur a erat nam at lectus urna duis?</h3>
-                <div class="faq-content">
-                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+                    @foreach ($faqs as $item)
+                        <div class="faq-item">
+                            <h3>{{ $item->question }}</h3>
+                            <div class="faq-content">
+                                <p>{{ $item->answer }}</p>
+                            </div>
+                            <i class="faq-toggle bi bi-chevron-right"></i>
+                        </div>
+                    @endforeach
 
-              <div class="faq-item">
+
+                    {{-- <div class="faq-item">
                 <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
                 <div class="faq-content">
                   <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
@@ -61,14 +64,14 @@
                   <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div><!-- End Faq item--> --}}
 
-            </div>
+                </div>
 
-          </div><!-- End Faq Column-->
+            </div><!-- End Faq Column-->
 
         </div>
 
-      </div>
+    </div>
 
-    </section><!-- /Faq Section -->
+</section><!-- /Faq Section -->

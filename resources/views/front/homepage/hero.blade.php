@@ -6,25 +6,37 @@
 
             <div class="col-lg-6 hero-content" data-aos="fade-right" data-aos-delay="100">
                 <div class="content-wrapper">
-                    <h1 class="hero-title">Creative <span class="typed"
-                            data-typed-items="{{$generalsettings->hero_title}}"></span></h1>
-                    <p class="lead">{{$generalsettings->hero_text}}</p>
+                    {{-- <h1 class="hero-title">Creative <span class="typed"
+                            data-typed-items="{{ $generalsettings->hero_title }}"></span></h1>
+                    <p class="lead">{{ $generalsettings->hero_text }}</p> --}}
+
+                    @php
+                        // Ambil semua nama service jadi string, dipisah koma untuk Typed.js
+                        $typedItems = $services->pluck('judul')->implode(', ');
+                    @endphp
+
+                    <h1 class="hero-title">
+                        Kami Bantu Anda <span class="typed" data-typed-items="{{ $typedItems }}"></span>
+                    </h1>
+                    <p class="lead">{{ $generalsettings->hero_text }}</p>
+
 
                     <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
                         <div class="stat-item">
-                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="{{$generalsettings->projects}}"
-                                data-purecounter-duration="2">0</span>
-                            <span class="stat-label">Projects Completed</span>
+                            <span class="purecounter" data-purecounter-start="0"
+                                data-purecounter-end="{{ $completedprojects }}" data-purecounter-duration="2">0</span>
+                            <span class="stat-label">Project Selesai</span>
                         </div>
                         <div class="stat-item">
-                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="{{$generalsettings->experiences}}"
+                            <span class="purecounter" data-purecounter-start="0"
+                                data-purecounter-end="{{ $generalsettings->experiences }}"
                                 data-purecounter-duration="2">0</span>
-                            <span class="stat-label">Years Experience</span>
+                            <span class="stat-label">Tahun Pengalaman</span>
                         </div>
                         <div class="stat-item">
-                            <span class="purecounter" data-purecounter-start="0" data-purecounter-end="{{$generalsettings->clients}}"
-                                data-purecounter-duration="2">0</span>
-                            <span class="stat-label">Happy Clients</span>
+                            <span class="purecounter" data-purecounter-start="0"
+                                data-purecounter-end="{{ $clients->count() }}" data-purecounter-duration="2">0</span>
+                            <span class="stat-label">Klien Bahagia</span>
                         </div>
                     </div>
 
@@ -34,10 +46,8 @@
                     </div>
 
                     <div class="social-links" data-aos="fade-up" data-aos-delay="400">
-                        <a href="#"><i class="bi bi-twitter"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                        <a href="#"><i class="bi bi-github"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        @include('front.partials.socmed')
+
                     </div>
                 </div>
             </div>
@@ -45,21 +55,25 @@
             <div class="col-lg-6 hero-image" data-aos="fade-left" data-aos-delay="200">
                 <div class="image-container">
                     <div class="floating-elements">
-                        <div class="floating-card card-1" data-aos="zoom-in" data-aos-delay="300">
-                            <i class="bi bi-palette"></i>
-                            <span>UI/UX Design</span>
-                        </div>
-                        <div class="floating-card card-2" data-aos="zoom-in" data-aos-delay="400">
-                            <i class="bi bi-code-slash"></i>
-                            <span>Development</span>
-                        </div>
-                        <div class="floating-card card-3" data-aos="zoom-in" data-aos-delay="500">
-                            <i class="bi bi-lightning"></i>
-                            <span>Creative Ideas</span>
-                        </div>
+                        @foreach ($services as $index => $item)
+                            @php
+                                // Hitung delay animasi otomatis (misal: 300, 400, 500, ...)
+                                $delay = 300 + $index * 100;
+
+                                // Tentukan nama class card unik
+                                $cardClass = 'card-' . ($index + 1);
+                            @endphp
+
+                            <div class="floating-card {{ $cardClass }}" data-aos="zoom-in"
+                                data-aos-delay="{{ $delay }}">
+                                <i class="bi bi-{{ $item->icon }}"></i>
+                                <span>{{ $item->judul }}</span>
+                            </div>
+                        @endforeach
                     </div>
-                    <img src="{{ asset('uploads/'. $profile->hero) }}" alt="Portfolio Hero"
-                        class="img-fluid hero-main-image" style="height: 100%; width: 100%;">
+
+                    <img src="{{ asset('uploads/' . $profile->hero) }}" alt="Portfolio Hero"
+                        class="img-fluid hero-main-image" style="height: 650px; width: 100%; object-fit:cover">
                     <div class="image-overlay"></div>
                 </div>
             </div>

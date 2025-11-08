@@ -137,7 +137,7 @@
                             searchable: false,
                             render: function(data, type, row) {
                                 if (data) {
-                                    return `<img src="${storageBaseUrl}/${data}" alt="Logo" class="img-thumbnail rounded-circle square-image" style="width: 50px; height: 50px;" />`;
+                                    return `<img src="${storageBaseUrl}/${data}" alt="Logo" class="img-thumbnail rounded-circle" style="width: 50px; height: 50px; object-fit:cover;" />`;
                                 } else {
                                     return `<span class="text-muted">No Logo</span>`;
                                 }

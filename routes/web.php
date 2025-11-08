@@ -4,12 +4,15 @@ use App\Http\Controllers\Admin\BackupRestoreController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\GeneralController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\KategoriBeritaController;
 use App\Http\Controllers\Admin\KategoriProjectController;
 use App\Http\Controllers\Admin\KategoriStackController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\admin\OtherController as AdminOtherController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
@@ -22,13 +25,32 @@ use App\Http\Controllers\Admin\StackController;
 use App\Http\Controllers\Admin\TestimoniController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Front\CommentController;
 use App\Http\Controllers\Front\HomepageController;
+use App\Http\Controllers\Front\OtherController;
+use App\Http\Controllers\Front\PostController as FrontPostController;
+use App\Http\Controllers\Front\ProductController as FrontProductController;
+use App\Http\Controllers\Front\ProjectController as FrontProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {});
-Route::get('/', [HomepageController::class, 'index'])->name('homepage');
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'auth_login'])->name('auth_login');
+Route::get('', [HomepageController::class, 'index'])->name('homepage');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'auth_login'])->name('auth_login');
+Route::post('send-message', [HomepageController::class, 'send_message'])->name('sendmessage');
+Route::get('projects', [FrontProjectController::class, 'project_listing'])->name('project.listing');
+Route::get('project/{slug}', [FrontProjectController::class, 'project_detail'])->name('project.detail');
+Route::get('products', [FrontProductController::class, 'product_listing'])->name('product.listing');
+Route::get('product/{slug}', [FrontProductController::class, 'product_detail'])->name('product.detail');
+Route::get('blog', [FrontPostController::class, 'post_listing'])->name('post.listing');
+Route::get('blog/{slug}', [FrontPostController::class, 'post_detail'])->name('post.detail');
+Route::post('blog/{slug}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('services', [OtherController::class, 'services'])->name('services');
+Route::get('about', [OtherController::class, 'about'])->name('about');
+Route::get('contact', [OtherController::class, 'contact'])->name('contact');
+Route::get('faq', [OtherController::class, 'faq'])->name('faq');
+Route::get('privacy-policy', [OtherController::class, 'privacy'])->name('privacy.policy');
+Route::get('terms-and-conditions', [OtherController::class, 'terms'])->name('terms.conditions');
 
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'admin'], function () {
@@ -85,9 +107,22 @@ Route::middleware(['auth'])->group(function () {
             Route::post('', [ProfileController::class, 'update'])->name('profile.update');
         });
 
+        Route::group(['prefix' => 'other'], function () {
+            Route::get('', [AdminOtherController::class, 'index'])->name('other.index');
+            Route::post('', [AdminOtherController::class, 'update'])->name('other.update');
+        });
+
         Route::group(['prefix' => 'general'], function () {
             Route::get('', [GeneralController::class, 'index'])->name('general.index');
             Route::post('', [GeneralController::class, 'update'])->name('general.update');
+        });
+
+        Route::group(['prefix' => 'feature'], function () {
+            Route::get('', [FeatureController::class, 'index'])->name('feature.index');
+            Route::post('', [FeatureController::class, 'storeOrUpdate'])->name('feature.store');
+            Route::put('{id}', [FeatureController::class, 'storeOrUpdate'])->name('feature.update');
+            Route::get('{id}', [FeatureController::class, 'edit'])->name('feature.edit');
+            Route::delete('{id}', [FeatureController::class, 'destroy'])->name('feature.destroy');
         });
 
         Route::group(['prefix' => 'kategori-project'], function () {
@@ -162,6 +197,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('', [ProjectController::class, 'storeOrUpdate'])->name('project.store');
             Route::put('{id}', [ProjectController::class, 'storeOrUpdate'])->name('project.update');
             Route::get('{id}', [ProjectController::class, 'edit'])->name('project.edit');
+            Route::get('{id}', [ProjectController::class, 'show'])->name('project.show');
+            Route::delete('gallery/{id}', [ProjectController::class, 'deleteGallery'])->name('gallery.delete');
             Route::delete('{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
         });
 
@@ -200,6 +237,11 @@ Route::middleware(['auth'])->group(function () {
             Route::put('{id}', [TestimoniController::class, 'storeOrUpdate'])->name('testimoni.update');
             Route::get('{id}', [TestimoniController::class, 'edit'])->name('testimoni.edit');
             Route::delete('{id}', [TestimoniController::class, 'destroy'])->name('testimoni.destroy');
+        });
+
+        Route::group(['prefix' => 'message'], function () {
+            Route::get('', [MessageController::class, 'index'])->name('message.index');
+            Route::delete('{id}', [MessageController::class, 'destroy'])->name('message.destroy');
         });
 
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');

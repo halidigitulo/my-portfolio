@@ -248,6 +248,42 @@
                 $('#productModal').modal('show'); // Show modal
             });
 
+            function resetForm(formSelector) {
+                const $form = $(formSelector);
+
+                // Reset semua input text, textarea, hidden field
+                $form[0].reset();
+
+                // Reset select2 / tomselect
+                $form.find('.select2').val(null).trigger('change');
+                $form.find('.tom-select').each(function() {
+                    if (this.tomselect) this.tomselect.clear();
+                });
+
+                // Reset Summernote editor (jika ada)
+                $form.find('.summernote').each(function() {
+                    if ($(this).next('.note-editor').length) {
+                        $(this).summernote('reset');
+                        // Fallback jika versi summernote lama
+                        $(this).summernote('code', '');
+                    }
+                });
+
+                // Reset file input dan preview image (opsional)
+                $form.find('input[type="file"]').val('');
+                $form.find('img.preview, #preview-image').attr('src', '').hide();
+
+                // Reset hidden input ID
+                $form.find('input[type="hidden"][id$="_id"]').val('');
+
+                // Hapus error state jika ada
+                $form.find('.is-invalid').removeClass('is-invalid');
+                $form.find('.invalid-feedback').remove();
+
+                return true; // Optional, bisa untuk chaining
+            }
+
+
             $(document).on('click', '.edit-product', function() {
                 const id = $(this).data('id'); // Ambil ID produk dari tombol
 
@@ -302,9 +338,7 @@
                             position: 'top-end',
                             showConfirmButton: false,
                             timer: 3000,
-                            customClass: {
-                                popup: 'zindex-99999'
-                            }
+                            
                         });
                     }
                 });
@@ -315,7 +349,6 @@
                 height: 200,
                 placeholder: 'Tulis deskripsi produk...',
             });
-
 
             // Handle form submission for both create and update
             $('#productForm').submit(function(e) {
@@ -353,7 +386,7 @@
                         });
                         $('#stack').val(null).trigger('change');
                         $('#productModal').modal('hide'); // Hide the modal
-                        $('#productForm')[0].reset(); // Reset the form
+                        resetForm('#productForm'); // Reset the form
                     },
                     error: function(xhr) {
                         Swal.fire({

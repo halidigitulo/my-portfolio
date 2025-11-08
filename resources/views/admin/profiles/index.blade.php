@@ -53,94 +53,102 @@
                                     @if ($profile->hero ?? '')
                                         <img id="preview-hero" src="{{ asset('uploads/' . $profile->hero) }}"
                                             alt="{{ $profile->nama }}" class="rounded img-fluid mb-3"
-                                            style="height: 100px; object-fit:hero;">
+                                            style="height: 100px; object-fit:cover;">
                                     @else
                                         <p class="text-danger text-center">Tidak ada hero</p>
                                     @endif
                                     <!-- File input for hero -->
                                     <input type="file" id="hero-upload" class="form-control" name="hero"
                                         onchange="previewHero(event)">
+
+                                    <h5 class="text-muted mt-3">Signature</h5>
+                                    @if ($profile->signature ?? '')
+                                        <img id="preview-signature" src="{{ asset('uploads/' . $profile->signature) }}"
+                                            alt="{{ $profile->nama }}" class="rounded img-fluid mb-3"
+                                            style="height: 100px; object-fit:cover;">
+                                    @else
+                                        <p class="text-danger text-center">Tidak ada signature</p>
+                                    @endif
+                                    <!-- File input for signature -->
+                                    <input type="file" id="signature-upload" class="form-control" name="signature"
+                                        onchange="previewSignature(event)">
                                 </div>
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                                <label for="nama" class="form-label">Nama</label>
-                                                <input type="text" class="form-control" name="nama" id="nama"
-                                                    placeholder="Nama" value="{{ old('nama', $profile->nama) }}" required>
+                                            <label for="nama" class="form-label">Nama</label>
+                                            <input type="text" class="form-control" name="nama" id="nama"
+                                                placeholder="Nama" value="{{ old('nama', $profile->nama) }}" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                                <label for="tagline" class="form-label">Tagline</label>
-                                                <input type="text" class="form-control" name="tagline" id="tagline"
-                                                    placeholder="tagline" value="{{ old('tagline', $profile->tagline) }}">
+                                            <label for="tagline" class="form-label">Tagline</label>
+                                            <input type="text" class="form-control" name="tagline" id="tagline"
+                                                placeholder="tagline" value="{{ old('tagline', $profile->tagline) }}">
                                         </div>
                                         <div class="col-md-12 mb-3">
-                                                <label for="direktur" class="form-label">Direktur</label>
-                                                <input type="text" class="form-control" name="direktur" id="direktur"
-                                                    value="{{ old('direktur', $profile->direktur) }}"
-                                                    placeholder="Direktur">
+                                            <label for="direktur" class="form-label">Direktur</label>
+                                            <input type="text" class="form-control" name="direktur" id="direktur"
+                                                value="{{ old('direktur', $profile->direktur) }}" placeholder="Direktur">
                                         </div>
                                         <div class="col-md-8 mb-3">
-                                                <label for="alamat" class="form-label">Alamat</label>
-                                                <input type="text" class="form-control" name="alamat" id="alamat"
-                                                    value="{{ old('alamat', $profile->alamat) }}" placeholder="Alamat">
+                                            <label for="alamat" class="form-label">Alamat</label>
+                                            <input type="text" class="form-control" name="alamat" id="alamat"
+                                                value="{{ old('alamat', $profile->alamat) }}" placeholder="Alamat">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="kota" class="form-label">Kode Pos</label>
                                             <input type="text" class="form-control" name="kota" id="kota"
-                                                value="{{ old('kota', $profile->kota) }}"
-                                                placeholder="Kota">
+                                                value="{{ old('kota', $profile->kota) }}" placeholder="Kota">
                                         </div>
                                         <div class="col-md-12 mb-3">
-                                                <label for="maps" class="form-label">Maps</label>
-                                                <textarea name="maps" id="" cols="30" rows="3" class="form-control" placeholder="Maps">{{ old('maps', $profile->maps) }}</textarea>
+                                            <label for="maps" class="form-label">Maps</label>
+                                            <textarea name="maps" id="" cols="30" rows="3" class="form-control" placeholder="Maps">{{ old('maps', $profile->maps) }}</textarea>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                                <label for="telp" class="form-label">No. Telp</label>
-                                                <input type="text" class="form-control" name="telp" id="telp"
-                                                    value="{{ old('telp', $profile->telp) }}" placeholder="No. Telp">
+                                            <label for="telp" class="form-label">No. Telp</label>
+                                            <input type="text" class="form-control" name="telp" id="telp"
+                                                value="{{ old('telp', $profile->telp) }}" placeholder="No. Telp">
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="text" class="form-control" name="email" id="email"
-                                                    value="{{ old('email', $profile->email) }}" placeholder="Email">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="text" class="form-control" name="email" id="email"
+                                                value="{{ old('email', $profile->email) }}" placeholder="Email">
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                                <label for="website" class="form-label">Website</label>
-                                                <input type="text" class="form-control" name="website" id="website"
-                                                    value="{{ old('website', $profile->website) }}"
-                                                    placeholder="Website">
+                                            <label for="website" class="form-label">Website</label>
+                                            <input type="text" class="form-control" name="website" id="website"
+                                                value="{{ old('website', $profile->website) }}" placeholder="Website">
                                         </div>
                                         <div class="col-md-12 mb-3">
-                                                <label for="video_url" class="form-label">URL Video</label>
-                                                <input type="text" class="form-control" name="video_url"
-                                                    id="video_url" value="{{ old('video_url', $profile->video_url) }}"
-                                                    placeholder="URL Video Youtube">
+                                            <label for="video_url" class="form-label">URL Video</label>
+                                            <input type="text" class="form-control" name="video_url" id="video_url"
+                                                value="{{ old('video_url', $profile->video_url) }}"
+                                                placeholder="URL Video Youtube">
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                                <label for="instagram" class="form-label">Instagram</label>
-                                                <input type="text" class="form-control" name="instagram"
-                                                    id="instagram" value="{{ old('instagram', $profile->instagram) }}"
-                                                    placeholder="URL Instagram">
+                                            <label for="instagram" class="form-label">Instagram</label>
+                                            <input type="text" class="form-control" name="instagram" id="instagram"
+                                                value="{{ old('instagram', $profile->instagram) }}"
+                                                placeholder="URL Instagram">
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                                <label for="facebook" class="form-label">Facebook</label>
-                                                <input type="text" class="form-control" name="facebook"
-                                                    id="facebook" value="{{ old('facebook', $profile->facebook) }}"
-                                                    placeholder="URL Facebook">
+                                            <label for="facebook" class="form-label">Facebook</label>
+                                            <input type="text" class="form-control" name="facebook" id="facebook"
+                                                value="{{ old('facebook', $profile->facebook) }}"
+                                                placeholder="URL Facebook">
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                                <label for="youtube" class="form-label">Youtube</label>
-                                                <input type="text" class="form-control" name="youtube" id="youtube"
-                                                    value="{{ old('youtube', $profile->youtube) }}"
-                                                    placeholder="URL Youtube">
+                                            <label for="youtube" class="form-label">Youtube</label>
+                                            <input type="text" class="form-control" name="youtube" id="youtube"
+                                                value="{{ old('youtube', $profile->youtube) }}"
+                                                placeholder="URL Youtube">
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                                <label for="tiktok" class="form-label">Tiktok</label>
-                                                <input type="text" class="form-control" name="tiktok" id="tiktok"
-                                                    value="{{ old('tiktok', $profile->tiktok) }}"
-                                                    placeholder="URL Tiktok">
+                                            <label for="tiktok" class="form-label">Tiktok</label>
+                                            <input type="text" class="form-control" name="tiktok" id="tiktok"
+                                                value="{{ old('tiktok', $profile->tiktok) }}" placeholder="URL Tiktok">
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="isi" class="form-label">Profile Perusahaan</label>
@@ -189,6 +197,12 @@
             const previewHero = document.getElementById('preview-hero');
             previewHero.src = URL.createObjectURL(event.target.files[0]);
             previewHero.onload = () => URL.revokeObjectURL(previewHero.src); // Free up memory
+        }
+
+        function previewSignature(event) {
+            const previewSignature = document.getElementById('preview-signature');
+            previewSignature.src = URL.createObjectURL(event.target.files[0]);
+            previewSignature.onload = () => URL.revokeObjectURL(previewSignature.src); // Free up memory
         }
 
         $(document).ready(function() {

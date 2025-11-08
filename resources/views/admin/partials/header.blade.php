@@ -4,7 +4,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>@yield('title') | {{ config('app.name') }}</title>
+    <title>@yield('title') - {{ $profile->nama ?? config('app.name') }}</title>
 
     <meta name="description" content="" />
 
@@ -45,4 +45,19 @@
     <script src="{{ asset('admin') }}/js/config.js"></script>
     @vite('resources/js/app.js')
     @stack('style')
+    <style>
+        /* Pastikan SweetAlert selalu di atas Bootstrap modal */
+        .swal2-container {
+            z-index: 20000 !important;
+            /* Lebih tinggi dari modal Bootstrap */
+        }
+
+        .modal {
+            z-index: 1050;
+        }
+
+        .modal-backdrop {
+            z-index: 1040;
+        }
+    </style>
 </head>

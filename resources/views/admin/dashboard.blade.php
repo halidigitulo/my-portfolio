@@ -14,7 +14,7 @@
                                 your profile.
                             </p>
 
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                            {{-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a> --}}
                         </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
@@ -92,11 +92,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            background: #e6ebf0;
-            /* Latar belakang lembut */
-        }
-
         .dashboard-card {
             border-radius: 1rem;
             transition: transform 0.25s ease, box-shadow 0.25s ease;

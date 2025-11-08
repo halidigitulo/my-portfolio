@@ -44,11 +44,14 @@ class TestimoniController extends Controller
     {
         // Validation rules
         $rules = [
-            'nama' => 'required|string|max:255',
+            'nama' => $id
+                ? 'nullable|string|max:255' . $id
+                : 'required|string|max:255',
             'pekerjaan' => 'nullable|string|max:255',
-            'testimoni' => 'required|string|max:1000',
+            'testimoni' => 'nullable|string|max:1000',
             'rating' => 'nullable|numeric',
             'foto' => 'nullable|image|max:2048',
+            'status' => 'nullable|in:0,1',
         ];
 
         // Validasi request
@@ -95,7 +98,6 @@ class TestimoniController extends Controller
         }
         $testimoni = testimoni::findOrFail($id);
 
-        $testimoni->stack()->detach();
         if ($testimoni->foto && file_exists(public_path('uploads/testimonis/' . $testimoni->foto))) {
             unlink(public_path('uploads/testimonis/' . $testimoni->foto));
         }

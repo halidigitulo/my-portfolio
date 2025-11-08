@@ -12,4 +12,9 @@ class Stack extends Model
     {
         return $this->belongsTo(KategoriStack::class);
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_stack', 'stack_id', 'project_id');
+    }
 }

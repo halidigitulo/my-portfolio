@@ -23,7 +23,7 @@ class Post extends Model
         'likes',
         'comments_count',
         'shares',
-        'published_at', 
+        'published_at',
         'author_id',
     ];
 
@@ -44,5 +44,10 @@ class Post extends Model
     public function kategori()
     {
         return $this->belongsTo(KategoriBerita::class, 'kategori_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
